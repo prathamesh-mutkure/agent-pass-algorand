@@ -9,12 +9,7 @@ import { Button } from './components/ui/Button'
 import { Dropdown } from './components/ui/Dropdown'
 import { getCachedAgentPassAppId, resetAgentPassApp } from './hooks/useAgentPassClient'
 import { ellipseAddress } from './utils/ellipseAddress'
-import { AgentPassNetworkId, getNetworkDisplayName, resolveAgentPassNetwork } from './utils/network/agentPassNetwork'
-
-const networkOptions = [
-  { value: NetworkId.LOCALNET, label: 'LocalNet', hint: 'Fast local demo with KMD', icon: <span className="network-chip network-chip--local">LN</span> },
-  { value: NetworkId.TESTNET, label: 'TestNet', hint: 'Live demo with external wallets', icon: <span className="network-chip network-chip--test">TN</span> },
-]
+import { AgentPassNetworkId, getEnabledAgentPassNetworks, getNetworkDisplayName, resolveAgentPassNetwork } from './utils/network/agentPassNetwork'
 
 const demoActions = [
   {
@@ -55,6 +50,13 @@ const Home = () => {
   const { activeAddress, activeWallet } = useWallet()
   const { activeNetwork, setActiveNetwork } = useNetwork()
   const { enqueueSnackbar } = useSnackbar()
+
+  const networkOptions = getEnabledAgentPassNetworks().map((network) => ({
+    value: network,
+    label: getNetworkDisplayName(network),
+    hint: network === NetworkId.LOCALNET ? 'KMD' : 'Pera / Defly',
+    icon: <span className={`network-chip ${network === NetworkId.LOCALNET ? 'network-chip--local' : 'network-chip--test'}`}>{network === NetworkId.LOCALNET ? 'LN' : 'TN'}</span>,
+  }))
 
   const currentNetwork = resolveAgentPassNetwork(activeNetwork)
   const cachedAppId = getCachedAgentPassAppId(currentNetwork)
@@ -110,7 +112,7 @@ const Home = () => {
               <Dropdown
                 options={networkOptions}
                 value={currentNetwork}
-                disabled={switchingNetwork !== null}
+                disabled={switchingNetwork !== null || networkOptions.length <= 1}
                 onChange={(value) => {
                   void handleNetworkSwitch(resolveAgentPassNetwork(value))
                 }}

@@ -10,13 +10,27 @@ export const AGENT_PASS_NETWORKS = [NetworkId.LOCALNET, NetworkId.TESTNET] as co
 
 export type AgentPassNetworkId = (typeof AGENT_PASS_NETWORKS)[number]
 
+export const isLocalnetEnabled = (): boolean => {
+  return import.meta.env.VITE_ENABLE_LOCALNET !== 'false'
+}
+
+export const getEnabledAgentPassNetworks = (): AgentPassNetworkId[] => {
+  return isLocalnetEnabled() ? [...AGENT_PASS_NETWORKS] : [NetworkId.TESTNET]
+}
+
 export const isAgentPassNetworkId = (value: string): value is AgentPassNetworkId => {
   return AGENT_PASS_NETWORKS.includes(value as AgentPassNetworkId)
 }
 
 export const getDefaultAgentPassNetwork = (): AgentPassNetworkId => {
   const configuredNetwork = (import.meta.env.VITE_DEFAULT_NETWORK ?? import.meta.env.VITE_ALGOD_NETWORK ?? NetworkId.LOCALNET).toLowerCase()
-  return isAgentPassNetworkId(configuredNetwork) ? configuredNetwork : NetworkId.LOCALNET
+  const enabledNetworks = getEnabledAgentPassNetworks()
+
+  if (isAgentPassNetworkId(configuredNetwork) && enabledNetworks.includes(configuredNetwork)) {
+    return configuredNetwork
+  }
+
+  return enabledNetworks[0]
 }
 
 export const resolveAgentPassNetwork = (networkId?: string): AgentPassNetworkId => {
@@ -85,17 +99,8 @@ export const getIndexerConfigForNetwork = (networkId: AgentPassNetworkId): AlgoV
 }
 
 export const getWalletManagerNetworks = () => {
-  const localnetAlgod = getLocalnetAlgodConfig()
   const testnetAlgod = getTestnetAlgodConfig()
-
-  return {
-    [NetworkId.LOCALNET]: {
-      algod: {
-        baseServer: localnetAlgod.server,
-        port: localnetAlgod.port,
-        token: localnetAlgod.token,
-      },
-    },
+  const networks: Record<string, { algod: { baseServer: string; port: string | number; token: string } }> = {
     [NetworkId.TESTNET]: {
       algod: {
         baseServer: testnetAlgod.server,
@@ -104,13 +109,27 @@ export const getWalletManagerNetworks = () => {
       },
     },
   }
+
+  if (isLocalnetEnabled()) {
+    const localnetAlgod = getLocalnetAlgodConfig()
+    networks[NetworkId.LOCALNET] = {
+      algod: {
+        baseServer: localnetAlgod.server,
+        port: localnetAlgod.port,
+        token: localnetAlgod.token,
+      },
+    }
+  }
+
+  return networks
 }
 
 export const getSupportedWallets = (): SupportedWallet[] => {
-  const localnetKmd = getLocalnetKmdConfig()
+  const wallets: SupportedWallet[] = [{ id: WalletId.PERA }, { id: WalletId.DEFLY }]
 
-  return [
-    {
+  if (isLocalnetEnabled()) {
+    const localnetKmd = getLocalnetKmdConfig()
+    wallets.unshift({
       id: WalletId.KMD,
       options: {
         baseServer: localnetKmd.server,
@@ -118,10 +137,10 @@ export const getSupportedWallets = (): SupportedWallet[] => {
         port: localnetKmd.port,
         wallet: localnetKmd.wallet,
       },
-    },
-    { id: WalletId.PERA },
-    { id: WalletId.DEFLY },
-  ]
+    })
+  }
+
+  return wallets
 }
 
 export const isWalletSupportedOnNetwork = (walletId: WalletId, networkId: string): boolean => {
