@@ -1,76 +1,72 @@
-# algorand-agent-pass-frontend
+# AgentPass Frontend
 
-This starter React project has been generated using AlgoKit. See below for default getting started instructions.
+This package contains the React frontend for the AgentPass MVP.
 
-# Setup
+The UI is focused on the core demo flow:
 
-### Initial Setup
+- connect wallet
+- register agent
+- grant consent
+- verify consent
+- revoke consent
 
-#### 1. Clone the Repository
-Start by cloning this repository to your local machine.
+## Key pieces
 
-#### 2. Install Pre-requisites
-Ensure the following pre-requisites are installed and properly configured:
+- [src/Home.tsx](./src/Home.tsx): main landing page and modal entry points
+- [src/hooks/useAgentPassClient.ts](./src/hooks/useAgentPassClient.ts): builds the typed client, deploys on first use, and caches the app ID per network
+- [src/components/RegisterAgentModal.tsx](./src/components/RegisterAgentModal.tsx): registers an agent
+- [src/components/GrantConsentModal.tsx](./src/components/GrantConsentModal.tsx): grants consent
+- [src/components/VerifyConsentModal.tsx](./src/components/VerifyConsentModal.tsx): verifies and optionally revokes consent
+- [src/contracts/AgentPass.ts](./src/contracts/AgentPass.ts): generated typed client copied from the contracts package
+- [src/utils/network/agentPassNetwork.ts](./src/utils/network/agentPassNetwork.ts): shared LocalNet/TestNet runtime config for wallets and algod/indexer clients
 
-- **npm**: Node package manager. Install from [Node.js Installation Guide](https://nodejs.org/en/download/). Verify with `npm -v` to see version `18.12`+.
-- **AlgoKit CLI**: Essential for project setup and operations. Install the latest version from [AlgoKit CLI Installation Guide](https://github.com/algorandfoundation/algokit-cli#install). Verify installation with `algokit --version`, expecting `2.0.0` or later.
+## Network support
 
-#### 3. Bootstrap Your Local Environment
-Run the following commands within the project folder:
+The frontend now supports both `localnet` and `testnet` at runtime.
 
-- **Install Project Dependencies**: With `algokit project bootstrap all`, ensure all dependencies are ready.
+- Use the network buttons in the home screen to switch between LocalNet and TestNet.
+- LocalNet uses KMD.
+- TestNet uses wallet providers such as Pera and Defly.
+- The default startup network is controlled by `VITE_DEFAULT_NETWORK` and defaults to `localnet`.
+- TestNet falls back to Algonode public endpoints unless `VITE_TESTNET_*` overrides are provided.
 
-### Development Workflow
+## App ID caching
 
-#### Terminal
-Directly manage and interact with your project using AlgoKit commands:
+The frontend stores deployed app IDs in `localStorage`, keyed by network.
 
-1. **Build Contracts**: `algokit project run build` builds react web app and links with smart contracts in workspace, if any.
-2. Remaining set of command for linting, testing and deployment can be found in respective [package.json](./package.json) file and [.algokit.toml](./.algokit.toml) files.
+This prevents redeploying on every interaction. During development, the UI exposes a reset button that clears the cached ID for the currently selected network so the next action deploys a fresh app there.
 
-#### VS Code
-For a seamless experience with breakpoint debugging and other features:
+## Commands
 
-1. **Open Project**: In VS Code, open the repository root.
-2. **Install Extensions**: Follow prompts to install recommended extensions.
-3. **Debugging**:
-   - Use `F5` to start debugging.
-   - **Windows Users**: Select the Python interpreter at `./.venv/Scripts/python.exe` via `Ctrl/Cmd + Shift + P` > `Python: Select Interpreter` before the first run.
+Generate or refresh linked app clients:
 
-#### Other IDEs
-While primarily optimized for VS Code, Jetbrains WebStorm has base support for this project:
+```bash
+pnpm generate:app-clients
+```
 
-1. **Open Project**: In your JetBrains IDE, open the repository root.
-2. **Automatic Setup**: The IDE should configure the Python interpreter and virtual environment.
-3. **Debugging**: Use `Shift+F10` or `Ctrl+R` to start debugging. Note: Windows users may encounter issues with pre-launch tasks due to a known bug. See [JetBrains forums](https://youtrack.jetbrains.com/issue/IDEA-277486/Shell-script-configuration-cannot-run-as-before-launch-task) for workarounds.
+Start the dev server:
 
-## AlgoKit Workspaces and Project Management
-This project supports both standalone and monorepo setups through AlgoKit workspaces. Leverage [`algokit project run`](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/features/project/run.md) commands for efficient monorepo project orchestration and management across multiple projects within a workspace.
+```bash
+pnpm dev
+```
 
-> Please note, by default frontend is pre configured to run against Algorand LocalNet. If you want to run against TestNet or MainNet, comment out the current environment variable and uncomment the relevant one in [`.env`](.env) file that is created after running bootstrap command and based on [`.env.template`](.env.template).
+Build the frontend:
 
-# Algorand Wallet integrations
+```bash
+pnpm build
+```
 
-The template comes with [`use-wallet`](https://github.com/txnlab/use-wallet) integration, which provides a React hook for connecting to an Algorand wallet providers. The following wallet providers are included by default:
-- LocalNet:
-- - [KMD/Local Wallet](https://github.com/TxnLab/use-wallet#kmd-algorand-key-management-daemon) - Algorand's Key Management Daemon (KMD) is a service that manages Algorand private keys and signs transactions. Works best with AlgoKit LocalNet and allows you to easily test and interact with your dApps locally.
-- TestNet and others:
-- - [Pera Wallet](https://perawallet.app).
-- - [Defly Wallet](https://defly.app).
-- - [Exodus Wallet](https://www.exodus.com).
-- - [Daffi Wallet](https://www.daffi.me).
+## Wallet and network notes
 
-Refer to official [`use-wallet`](https://github.com/txnlab/use-wallet) documentation for detailed guidelines on how to integrate with other wallet providers (such as WalletConnect v2). Too see implementation details on the use wallet hook and initialization of extra wallet providers refer to [`App.tsx`](./src/App.tsx).
+- LocalNet development uses the KMD wallet integration from `use-wallet`.
+- TestNet uses the same frontend build; switch networks in the UI, connect a TestNet wallet, fund it, and repeat the same flow.
+- Readonly contract methods such as `verifyConsent` do not require a wallet signing prompt when routed through the generated client.
 
-# Tools
+## Manual demo checklist
 
-This project makes use of React and Tailwind to provider a base project configuration to develop frontends for your Algorand dApps and interactions with smart contracts. The following tools are in use:
-
-- [AlgoKit Utils](https://github.com/algorandfoundation/algokit-utils-ts) - Various TypeScript utilities to simplify interactions with Algorand and AlgoKit.
-- [React](https://reactjs.org/) - A JavaScript library for building user interfaces.
-- [use-wallet](https://github.com/txnlab/use-wallet) - A React hook for connecting to an Algorand wallet providers.
-- [npm](https://www.npmjs.com/): Node.js package manager
-It has also been configured to have a productive dev experience out of the box in [VS Code](https://code.visualstudio.com/), see the [.vscode](./.vscode) folder.
-# Integrating with smart contracts and application clients
-
-Refer to the detailed guidance on [integrating with smart contracts and application clients](./src/contracts/README.md). In essence, for any smart contract codebase generated with AlgoKit or other tools that produce compile contracts into ARC34 compliant app specifications, you can use the `algokit generate` command to generate TypeScript or Python typed client. Once generated simply drag and drop the generated client into `./src/contracts` and import it into your React components as you see fit.
+1. Connect wallet.
+2. Register `MyBot` with metadata such as `https://bot.example`.
+3. Grant consent for agent `1`, scope `profile.read`, expiry `60` minutes.
+4. Verify `profile.read` and confirm success.
+5. Verify `profile.write` and confirm failure.
+6. Revoke consent and verify again if needed.

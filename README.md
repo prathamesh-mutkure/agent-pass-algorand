@@ -1,45 +1,81 @@
-# algorand-agent-pass
+# AgentPass
 
-This starter full stack project has been generated using AlgoKit. See below for default getting started instructions.
+AgentPass is a hackathon MVP for decentralized agent identity and consent on Algorand.
 
-## Setup
+The current scope is intentionally narrow and demo-friendly:
 
-### Initial setup
-1. Clone this repository to your local machine.
-2. Ensure [Docker](https://www.docker.com/) is installed and operational. Then, install `AlgoKit` following this [guide](https://github.com/algorandfoundation/algokit-cli#install).
-3. Run `algokit project bootstrap all` in the project directory. This command sets up your environment by installing necessary dependencies, setting up a Python virtual environment, and preparing your `.env` file.
-4. In the case of a smart contract project, execute `algokit generate env-file -a target_network localnet` from the `algorand-agent-pass-contracts` directory to create a `.env.localnet` file with default configuration for `localnet`.
-5. To build your project, execute `algokit project run build`. This compiles your project and prepares it for running.
-6. For project-specific instructions, refer to the READMEs of the child projects:
-   - Smart Contracts: [algorand-agent-pass-contracts](projects/algorand-agent-pass-contracts/README.md)
-   - Frontend Application: [algorand-agent-pass-frontend](projects/algorand-agent-pass-frontend/README.md)
+- Register an AI agent on-chain
+- Grant consent for a free-form scope such as `profile.read`
+- Verify consent through a readonly call
+- Revoke consent
+- Run the same flow on LocalNet during development and TestNet for demos
 
-> This project is structured as a monorepo, refer to the [documentation](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/features/project/run.md) to learn more about custom command orchestration via `algokit project run`.
+The implementation plan and handoff checklist live in [PLAN.md](./PLAN.md) and [TASKS.md](./TASKS.md).
 
-### Subsequently
+## Repo layout
 
-1. If you update to the latest source code and there are new dependencies, you will need to run `algokit project bootstrap all` again.
-2. Follow step 3 above.
+- [projects/algorand-agent-pass-contracts](./projects/algorand-agent-pass-contracts/README.md): PuyaTs smart contract, deployment script, and generated artifacts
+- [projects/algorand-agent-pass-frontend](./projects/algorand-agent-pass-frontend/README.md): React frontend with wallet integration and typed app client usage
 
-## Tools
+## Quick start
 
-This project makes use of Python and React to build Algorand smart contracts and to provide a base project configuration to develop frontends for your Algorand dApps and interactions with smart contracts. The following tools are in use:
+1. Install prerequisites:
+   - Node.js 22+
+   - AlgoKit CLI
+   - Docker for LocalNet
+2. Bootstrap the workspace:
 
-- Algorand, AlgoKit, and AlgoKit Utils
-- Python dependencies including Poetry, Black, Ruff or Flake8, mypy, pytest, and pip-audit
-- React and related dependencies including AlgoKit Utils, Tailwind CSS, daisyUI, use-wallet, npm, jest, playwright, Prettier, ESLint, and Github Actions workflows for build validation
+```bash
+algokit project bootstrap all
+```
 
-### VS Code
+3. Generate a localnet env file for the contracts package if you do not already have one:
 
-It has also been configured to have a productive dev experience out of the box in [VS Code](https://code.visualstudio.com/), see the [backend .vscode](./backend/.vscode) and [frontend .vscode](./frontend/.vscode) folders for more details.
+```bash
+cd projects/algorand-agent-pass-contracts
+algokit generate env-file -a target_network localnet
+```
 
-## Integrating with smart contracts and application clients
+4. Start LocalNet:
 
-Refer to the [algorand-agent-pass-contracts](projects/algorand-agent-pass-contracts/README.md) folder for overview of working with smart contracts, [projects/algorand-agent-pass-frontend](projects/algorand-agent-pass-frontend/README.md) for overview of the React project and the [projects/algorand-agent-pass-frontend/contracts](projects/algorand-agent-pass-frontend/src/contracts/README.md) folder for README on adding new smart contracts from backend as application clients on your frontend. The templates provided in these folders will help you get started.
-When you compile and generate smart contract artifacts, your frontend component will automatically generate typescript application clients from smart contract artifacts and move them to `frontend/src/contracts` folder, see [`generate:app-clients` in package.json](projects/algorand-agent-pass-frontend/package.json). Afterwards, you are free to import and use them in your frontend application.
+```bash
+algokit localnet start
+```
 
-The frontend starter also provides an example of interactions with your AgentPassClient in [`AppCalls.tsx`](projects/algorand-agent-pass-frontend/src/components/AppCalls.tsx) component by default.
+5. Build the contract and regenerate typed clients:
 
-## Next Steps
+```bash
+algokit project run build
+```
 
-You can take this project and customize it to build your own decentralized applications on Algorand. Make sure to understand how to use AlgoKit and how to write smart contracts for Algorand before you start.
+6. Deploy the contract to LocalNet:
+
+```bash
+cd projects/algorand-agent-pass-contracts
+pnpm deploy:ci
+```
+
+7. Start the frontend:
+
+```bash
+cd ../algorand-agent-pass-frontend
+pnpm dev
+```
+
+## Demo flow
+
+1. Pick `LocalNet` or `TestNet` in the frontend.
+2. Connect a wallet for that network.
+2. Register an agent with a name and metadata URL.
+3. Grant consent for a scope such as `profile.read`.
+4. Verify that the consent is `true`.
+5. Verify a different scope to see `false`.
+6. Revoke consent and verify again.
+
+## Notes
+
+- The frontend supports both LocalNet and TestNet at runtime without swapping the build.
+- LocalNet stays env-driven; TestNet uses Algonode public endpoints by default and can be overridden in the frontend `.env`.
+- The frontend caches deployed app IDs per network in `localStorage`.
+- The reset button in the UI clears the cached app ID for the currently selected network so the next action redeploys the contract there.
+- Readonly methods such as `verifyConsent` and `getAgent` are exposed through the typed client and execute via simulation.

@@ -1,22 +1,17 @@
-import { useWallet } from '@txnlab/use-wallet-react'
-import { useMemo } from 'react'
+import { useNetwork, useWallet } from '@txnlab/use-wallet-react'
 import { ellipseAddress } from '../utils/ellipseAddress'
-import { getAlgodConfigFromViteEnvironment } from '../utils/network/getAlgoClientConfigs'
+import { getAccountExplorerUrl, getNetworkDisplayName } from '../utils/network/agentPassNetwork'
 
 const Account = () => {
   const { activeAddress } = useWallet()
-  const algoConfig = getAlgodConfigFromViteEnvironment()
-
-  const networkName = useMemo(() => {
-    return algoConfig.network === '' ? 'localnet' : algoConfig.network.toLocaleLowerCase()
-  }, [algoConfig.network])
+  const { activeNetwork } = useNetwork()
 
   return (
     <div>
-      <a className="text-xl" target="_blank" href={`https://lora.algokit.io/${networkName}/account/${activeAddress}/`}>
+      <a className="text-xl" target="_blank" rel="noreferrer" href={getAccountExplorerUrl(activeNetwork, activeAddress ?? '')}>
         Address: {ellipseAddress(activeAddress)}
       </a>
-      <div className="text-xl">Network: {networkName}</div>
+      <div className="text-xl">Network: {getNetworkDisplayName(activeNetwork)}</div>
     </div>
   )
 }

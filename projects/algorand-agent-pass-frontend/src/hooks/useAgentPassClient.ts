@@ -1,35 +1,46 @@
 import { AlgorandClient, Config } from '@algorandfoundation/algokit-utils'
 import { OnSchemaBreak, OnUpdate } from '@algorandfoundation/algokit-utils/types/app'
-import { useWallet } from '@txnlab/use-wallet-react'
+import { useNetwork, useWallet } from '@txnlab/use-wallet-react'
 import { AgentPassClient, AgentPassFactory } from '../contracts/AgentPass'
-import { getAlgodConfigFromViteEnvironment, getIndexerConfigFromViteEnvironment } from '../utils/network/getAlgoClientConfigs'
+import { getAlgodConfigForNetwork, getIndexerConfigForNetwork, resolveAgentPassNetwork } from '../utils/network/agentPassNetwork'
 
-const APP_ID_KEY = 'AGENT_PASS_APP_ID'
+const APP_ID_KEY_PREFIX = 'AGENT_PASS_APP_ID'
 
 Config.configure({ populateAppCallResources: true })
 
-export const resetAgentPassApp = () => {
-  localStorage.removeItem(APP_ID_KEY)
+const getAgentPassAppStorageKey = (networkId: string) => `${APP_ID_KEY_PREFIX}_${networkId}`
+
+export const resetAgentPassApp = (networkId?: string) => {
+  if (networkId) {
+    localStorage.removeItem(getAgentPassAppStorageKey(networkId))
+    return
+  }
+
+  Object.keys(localStorage)
+    .filter((key) => key.startsWith(APP_ID_KEY_PREFIX))
+    .forEach((key) => localStorage.removeItem(key))
 }
 
-export const getCachedAgentPassAppId = (): string | null => {
-  return localStorage.getItem(APP_ID_KEY)
+export const getCachedAgentPassAppId = (networkId: string): string | null => {
+  return localStorage.getItem(getAgentPassAppStorageKey(networkId))
 }
 
 export const useAgentPassClient = () => {
   const { transactionSigner, activeAddress } = useWallet()
+  const { activeNetwork } = useNetwork()
 
   const getClient = async (): Promise<AgentPassClient> => {
     if (!activeAddress) {
       throw new Error('Connect a wallet first')
     }
 
-    const algodConfig = getAlgodConfigFromViteEnvironment()
-    const indexerConfig = getIndexerConfigFromViteEnvironment()
+    const networkId = resolveAgentPassNetwork(activeNetwork)
+    const algodConfig = getAlgodConfigForNetwork(networkId)
+    const indexerConfig = getIndexerConfigForNetwork(networkId)
     const algorand = AlgorandClient.fromConfig({ algodConfig, indexerConfig })
     algorand.setDefaultSigner(transactionSigner)
 
-    const cachedId = localStorage.getItem(APP_ID_KEY)
+    const cachedId = getCachedAgentPassAppId(networkId)
     if (cachedId) {
       return algorand.client.getTypedAppClientById(AgentPassClient, {
         appId: BigInt(cachedId),
@@ -56,7 +67,7 @@ export const useAgentPassClient = () => {
       })
     }
 
-    localStorage.setItem(APP_ID_KEY, appClient.appId.toString())
+    localStorage.setItem(getAgentPassAppStorageKey(networkId), appClient.appId.toString())
     return appClient
   }
 
