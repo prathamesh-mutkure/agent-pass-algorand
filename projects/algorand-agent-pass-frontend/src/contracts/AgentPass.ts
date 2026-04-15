@@ -24,7 +24,7 @@ import { SendParams, SendSingleTransactionResult, SendAtomicTransactionComposerR
 import { Address, encodeAddress, modelsv2, OnApplicationComplete, Transaction, TransactionSigner } from 'algosdk'
 import SimulateResponse = modelsv2.SimulateResponse
 
-export const APP_SPEC: Arc56Contract = {"name":"AgentPass","structs":{},"methods":[{"name":"hello","args":[{"type":"string","name":"name"}],"returns":{"type":"string"},"actions":{"create":[],"call":["NoOp"]},"readonly":false,"events":[],"recommendations":{}}],"arcs":[22,28],"networks":{},"state":{"schema":{"global":{"ints":0,"bytes":0},"local":{"ints":0,"bytes":0}},"keys":{"global":{},"local":{},"box":{}},"maps":{"global":{},"local":{},"box":{}}},"bareActions":{"create":["NoOp"],"call":[]},"sourceInfo":{"approval":{"sourceInfo":[{"pc":[37],"errorMessage":"OnCompletion must be NoOp && can only call when creating"},{"pc":[26],"errorMessage":"OnCompletion must be NoOp && can only call when not creating"},{"pc":[47],"errorMessage":"invalid array length header"},{"pc":[55],"errorMessage":"invalid number of bytes for arc4.dynamic_array<arc4.uint8>"}],"pcOffsetMethod":"none"},"clear":{"sourceInfo":[],"pcOffsetMethod":"none"}},"source":{"approval":"I3ByYWdtYSB2ZXJzaW9uIDExCiNwcmFnbWEgdHlwZXRyYWNrIGZhbHNlCgovLyBAYWxnb3JhbmRmb3VuZGF0aW9uL2FsZ29yYW5kLXR5cGVzY3JpcHQvYXJjNC9pbmRleC5kLnRzOjpDb250cmFjdC5hcHByb3ZhbFByb2dyYW0oKSAtPiB1aW50NjQ6Cm1haW46CiAgICAvLyBzbWFydF9jb250cmFjdHMvYWdlbnRfcGFzcy9jb250cmFjdC5hbGdvLnRzOjMKICAgIC8vIGV4cG9ydCBjbGFzcyBBZ2VudFBhc3MgZXh0ZW5kcyBDb250cmFjdCB7CiAgICB0eG4gTnVtQXBwQXJncwogICAgYnogbWFpbl9fX2FsZ290c19fLmRlZmF1bHRDcmVhdGVANQogICAgcHVzaGJ5dGVzIDB4MDJiZWNlMTEgLy8gbWV0aG9kICJoZWxsbyhzdHJpbmcpc3RyaW5nIgogICAgdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMAogICAgbWF0Y2ggbWFpbl9oZWxsb19yb3V0ZUAzCiAgICBlcnIKCm1haW5faGVsbG9fcm91dGVAMzoKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hZ2VudF9wYXNzL2NvbnRyYWN0LmFsZ28udHM6NAogICAgLy8gaGVsbG8obmFtZTogc3RyaW5nKTogc3RyaW5nIHsKICAgIHR4biBPbkNvbXBsZXRpb24KICAgICEKICAgIHR4biBBcHBsaWNhdGlvbklECiAgICAmJgogICAgYXNzZXJ0IC8vIE9uQ29tcGxldGlvbiBtdXN0IGJlIE5vT3AgJiYgY2FuIG9ubHkgY2FsbCB3aGVuIG5vdCBjcmVhdGluZwogICAgYiBoZWxsbwoKbWFpbl9fX2FsZ290c19fLmRlZmF1bHRDcmVhdGVANToKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hZ2VudF9wYXNzL2NvbnRyYWN0LmFsZ28udHM6MwogICAgLy8gZXhwb3J0IGNsYXNzIEFnZW50UGFzcyBleHRlbmRzIENvbnRyYWN0IHsKICAgIHR4biBPbkNvbXBsZXRpb24KICAgICEKICAgIHR4biBBcHBsaWNhdGlvbklECiAgICAhCiAgICAmJgogICAgYXNzZXJ0IC8vIE9uQ29tcGxldGlvbiBtdXN0IGJlIE5vT3AgJiYgY2FuIG9ubHkgY2FsbCB3aGVuIGNyZWF0aW5nCiAgICBwdXNoaW50IDEgLy8gMQogICAgcmV0dXJuCgoKLy8gc21hcnRfY29udHJhY3RzL2FnZW50X3Bhc3MvY29udHJhY3QuYWxnby50czo6QWdlbnRQYXNzLmhlbGxvW3JvdXRpbmddKCkgLT4gdm9pZDoKaGVsbG86CiAgICAvLyBzbWFydF9jb250cmFjdHMvYWdlbnRfcGFzcy9jb250cmFjdC5hbGdvLnRzOjQKICAgIC8vIGhlbGxvKG5hbWU6IHN0cmluZyk6IHN0cmluZyB7CiAgICB0eG5hIEFwcGxpY2F0aW9uQXJncyAxCiAgICBkdXAKICAgIHB1c2hpbnQgMCAvLyAwCiAgICBleHRyYWN0X3VpbnQxNiAvLyBvbiBlcnJvcjogaW52YWxpZCBhcnJheSBsZW5ndGggaGVhZGVyCiAgICBwdXNoaW50IDIgLy8gMgogICAgKwogICAgZGlnIDEKICAgIGxlbgogICAgPT0KICAgIGFzc2VydCAvLyBpbnZhbGlkIG51bWJlciBvZiBieXRlcyBmb3IgYXJjNC5keW5hbWljX2FycmF5PGFyYzQudWludDg+CiAgICBleHRyYWN0IDIgMAogICAgLy8gc21hcnRfY29udHJhY3RzL2FnZW50X3Bhc3MvY29udHJhY3QuYWxnby50czo1CiAgICAvLyByZXR1cm4gYEhlbGxvLCAke25hbWV9YAogICAgcHVzaGJ5dGVzICJIZWxsbywgIgogICAgc3dhcAogICAgY29uY2F0CiAgICAvLyBzbWFydF9jb250cmFjdHMvYWdlbnRfcGFzcy9jb250cmFjdC5hbGdvLnRzOjQKICAgIC8vIGhlbGxvKG5hbWU6IHN0cmluZyk6IHN0cmluZyB7CiAgICBkdXAKICAgIGxlbgogICAgaXRvYgogICAgZXh0cmFjdCA2IDIKICAgIHN3YXAKICAgIGNvbmNhdAogICAgcHVzaGJ5dGVzIDB4MTUxZjdjNzUKICAgIHN3YXAKICAgIGNvbmNhdAogICAgbG9nCiAgICBwdXNoaW50IDEgLy8gMQogICAgcmV0dXJuCg==","clear":"I3ByYWdtYSB2ZXJzaW9uIDExCiNwcmFnbWEgdHlwZXRyYWNrIGZhbHNlCgovLyBAYWxnb3JhbmRmb3VuZGF0aW9uL2FsZ29yYW5kLXR5cGVzY3JpcHQvYmFzZS1jb250cmFjdC5kLnRzOjpCYXNlQ29udHJhY3QuY2xlYXJTdGF0ZVByb2dyYW0oKSAtPiB1aW50NjQ6Cm1haW46CiAgICBwdXNoaW50IDEgLy8gMQogICAgcmV0dXJuCg=="},"byteCode":{"approval":"CzEbQQAYgAQCvs4RNhoAjgEAAQAxGRQxGBBEQgALMRkUMRgUEESBAUM2GgFJgQBZgQIISwEVEkRXAgCAB0hlbGxvLCBMUEkVFlcGAkxQgAQVH3x1TFCwgQFD","clear":"C4EBQw=="},"compilerInfo":{"compiler":"puya","compilerVersion":{"major":5,"minor":3,"patch":2}},"events":[],"templateVariables":{}} as unknown as Arc56Contract
+export const APP_SPEC: Arc56Contract = {"name":"AgentPass","structs":{"AgentInfo":[{"name":"owner","type":"address"},{"name":"name","type":"string"},{"name":"metadata","type":"string"},{"name":"createdAt","type":"uint64"}],"ConsentKey":[{"name":"agentId","type":"uint64"},{"name":"scope","type":"string"}],"ConsentRecord":[{"name":"expiresAt","type":"uint64"}]},"methods":[{"name":"createApplication","args":[],"returns":{"type":"void"},"actions":{"create":["NoOp"],"call":[]},"readonly":false,"events":[],"recommendations":{}},{"name":"hello","args":[{"type":"string","name":"name"}],"returns":{"type":"string"},"actions":{"create":[],"call":["NoOp"]},"readonly":false,"events":[],"recommendations":{}},{"name":"registerAgent","args":[{"type":"string","name":"name"},{"type":"string","name":"metadata"}],"returns":{"type":"uint64"},"actions":{"create":[],"call":["NoOp"]},"readonly":false,"events":[],"recommendations":{}},{"name":"grantConsent","args":[{"type":"uint64","name":"agentId"},{"type":"string","name":"scope"},{"type":"uint64","name":"expiresAt"}],"returns":{"type":"void"},"actions":{"create":[],"call":["NoOp"]},"readonly":false,"events":[],"recommendations":{}},{"name":"revokeConsent","args":[{"type":"uint64","name":"agentId"},{"type":"string","name":"scope"}],"returns":{"type":"void"},"actions":{"create":[],"call":["NoOp"]},"readonly":false,"events":[],"recommendations":{}},{"name":"verifyConsent","args":[{"type":"uint64","name":"agentId"},{"type":"string","name":"scope"}],"returns":{"type":"bool"},"actions":{"create":[],"call":["NoOp"]},"readonly":true,"events":[],"recommendations":{}},{"name":"getAgent","args":[{"type":"uint64","name":"agentId"}],"returns":{"type":"(address,string,string,uint64)","struct":"AgentInfo"},"actions":{"create":[],"call":["NoOp"]},"readonly":true,"events":[],"recommendations":{}}],"arcs":[22,28],"networks":{},"state":{"schema":{"global":{"ints":1,"bytes":0},"local":{"ints":0,"bytes":0}},"keys":{"global":{"nextAgentId":{"keyType":"AVMString","valueType":"AVMUint64","key":"bmV4dElk"}},"local":{},"box":{}},"maps":{"global":{},"local":{},"box":{"agents":{"keyType":"uint64","valueType":"AgentInfo","prefix":"YQ=="},"consents":{"keyType":"ConsentKey","valueType":"ConsentRecord","prefix":"Yw=="}}}},"bareActions":{"create":[],"call":[]},"sourceInfo":{"approval":{"sourceInfo":[{"pc":[484],"errorMessage":"Box must have value"},{"pc":[31],"errorMessage":"OnCompletion must be NoOp"},{"pc":[307,383,510],"errorMessage":"agent not found"},{"pc":[182],"errorMessage":"check GlobalState exists"},{"pc":[321],"errorMessage":"expiry must be in future"},{"pc":[111,152,168,276,362,429],"errorMessage":"invalid array length header"},{"pc":[118,159,175,283,369,436],"errorMessage":"invalid number of bytes for arc4.dynamic_array<arc4.uint8>"},{"pc":[269,294,355,422,500],"errorMessage":"invalid number of bytes for arc4.uint64"},{"pc":[315,391],"errorMessage":"not owner"}],"pcOffsetMethod":"none"},"clear":{"sourceInfo":[],"pcOffsetMethod":"none"}},"source":{"approval":"I3ByYWdtYSB2ZXJzaW9uIDExCiNwcmFnbWEgdHlwZXRyYWNrIGZhbHNlCgovLyBAYWxnb3JhbmRmb3VuZGF0aW9uL2FsZ29yYW5kLXR5cGVzY3JpcHQvYXJjNC9pbmRleC5kLnRzOjpDb250cmFjdC5hcHByb3ZhbFByb2dyYW0oKSAtPiB1aW50NjQ6Cm1haW46CiAgICBpbnRjYmxvY2sgMCAxIDIgOAogICAgYnl0ZWNibG9jayAweDE1MWY3Yzc1ICJhIiAibmV4dElkIiAweDAwMGEgImMiCiAgICAvLyBzbWFydF9jb250cmFjdHMvYWdlbnRfcGFzcy9jb250cmFjdC5hbGdvLnRzOjMxCiAgICAvLyBleHBvcnQgY2xhc3MgQWdlbnRQYXNzIGV4dGVuZHMgQ29udHJhY3QgewogICAgdHhuIE9uQ29tcGxldGlvbgogICAgIQogICAgYXNzZXJ0IC8vIE9uQ29tcGxldGlvbiBtdXN0IGJlIE5vT3AKICAgIHR4biBBcHBsaWNhdGlvbklECiAgICBieiBtYWluX2NyZWF0ZV9Ob09wQDEwCiAgICBwdXNoYnl0ZXNzIDB4MDJiZWNlMTEgMHhmNTUyMTk1MiAweDRlN2NlYmU2IDB4N2Y2NGVlNWIgMHg1ZmE0Yzc5NiAweGNkOTY0NWViIC8vIG1ldGhvZCAiaGVsbG8oc3RyaW5nKXN0cmluZyIsIG1ldGhvZCAicmVnaXN0ZXJBZ2VudChzdHJpbmcsc3RyaW5nKXVpbnQ2NCIsIG1ldGhvZCAiZ3JhbnRDb25zZW50KHVpbnQ2NCxzdHJpbmcsdWludDY0KXZvaWQiLCBtZXRob2QgInJldm9rZUNvbnNlbnQodWludDY0LHN0cmluZyl2b2lkIiwgbWV0aG9kICJ2ZXJpZnlDb25zZW50KHVpbnQ2NCxzdHJpbmcpYm9vbCIsIG1ldGhvZCAiZ2V0QWdlbnQodWludDY0KShhZGRyZXNzLHN0cmluZyxzdHJpbmcsdWludDY0KSIKICAgIHR4bmEgQXBwbGljYXRpb25BcmdzIDAKICAgIG1hdGNoIGhlbGxvIHJlZ2lzdGVyQWdlbnQgZ3JhbnRDb25zZW50IHJldm9rZUNvbnNlbnQgdmVyaWZ5Q29uc2VudCBnZXRBZ2VudAogICAgZXJyCgptYWluX2NyZWF0ZV9Ob09wQDEwOgogICAgLy8gc21hcnRfY29udHJhY3RzL2FnZW50X3Bhc3MvY29udHJhY3QuYWxnby50czozMQogICAgLy8gZXhwb3J0IGNsYXNzIEFnZW50UGFzcyBleHRlbmRzIENvbnRyYWN0IHsKICAgIHB1c2hieXRlcyAweGI4NDQ3YjM2IC8vIG1ldGhvZCAiY3JlYXRlQXBwbGljYXRpb24oKXZvaWQiCiAgICB0eG5hIEFwcGxpY2F0aW9uQXJncyAwCiAgICBtYXRjaCBtYWluX2NyZWF0ZUFwcGxpY2F0aW9uX3JvdXRlQDExCiAgICBlcnIKCm1haW5fY3JlYXRlQXBwbGljYXRpb25fcm91dGVAMTE6CiAgICAvLyBzbWFydF9jb250cmFjdHMvYWdlbnRfcGFzcy9jb250cmFjdC5hbGdvLnRzOjMyCiAgICAvLyBuZXh0QWdlbnRJZCA9IEdsb2JhbFN0YXRlPHVpbnQ2ND4oeyBrZXk6ICduZXh0SWQnIH0pCiAgICBieXRlY18yIC8vICJuZXh0SWQiCiAgICAvLyBzbWFydF9jb250cmFjdHMvYWdlbnRfcGFzcy9jb250cmFjdC5hbGdvLnRzOjM3CiAgICAvLyB0aGlzLm5leHRBZ2VudElkLnZhbHVlID0gVWludDY0KDEpCiAgICBpbnRjXzEgLy8gMQogICAgYXBwX2dsb2JhbF9wdXQKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hZ2VudF9wYXNzL2NvbnRyYWN0LmFsZ28udHM6MzYKICAgIC8vIHB1YmxpYyBjcmVhdGVBcHBsaWNhdGlvbigpOiB2b2lkIHsKICAgIGludGNfMSAvLyAxCiAgICByZXR1cm4KCgovLyBzbWFydF9jb250cmFjdHMvYWdlbnRfcGFzcy9jb250cmFjdC5hbGdvLnRzOjpBZ2VudFBhc3MuaGVsbG9bcm91dGluZ10oKSAtPiB2b2lkOgpoZWxsbzoKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hZ2VudF9wYXNzL2NvbnRyYWN0LmFsZ28udHM6NDAKICAgIC8vIHB1YmxpYyBoZWxsbyhuYW1lOiBzdHJpbmcpOiBzdHJpbmcgewogICAgdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMQogICAgZHVwCiAgICBpbnRjXzAgLy8gMAogICAgZXh0cmFjdF91aW50MTYgLy8gb24gZXJyb3I6IGludmFsaWQgYXJyYXkgbGVuZ3RoIGhlYWRlcgogICAgaW50Y18yIC8vIDIKICAgICsKICAgIGRpZyAxCiAgICBsZW4KICAgID09CiAgICBhc3NlcnQgLy8gaW52YWxpZCBudW1iZXIgb2YgYnl0ZXMgZm9yIGFyYzQuZHluYW1pY19hcnJheTxhcmM0LnVpbnQ4PgogICAgZXh0cmFjdCAyIDAKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hZ2VudF9wYXNzL2NvbnRyYWN0LmFsZ28udHM6NDEKICAgIC8vIHJldHVybiBgSGVsbG8sICR7bmFtZX1gCiAgICBwdXNoYnl0ZXMgIkhlbGxvLCAiCiAgICBzd2FwCiAgICBjb25jYXQKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hZ2VudF9wYXNzL2NvbnRyYWN0LmFsZ28udHM6NDAKICAgIC8vIHB1YmxpYyBoZWxsbyhuYW1lOiBzdHJpbmcpOiBzdHJpbmcgewogICAgZHVwCiAgICBsZW4KICAgIGl0b2IKICAgIGV4dHJhY3QgNiAyCiAgICBzd2FwCiAgICBjb25jYXQKICAgIGJ5dGVjXzAgLy8gMHgxNTFmN2M3NQogICAgc3dhcAogICAgY29uY2F0CiAgICBsb2cKICAgIGludGNfMSAvLyAxCiAgICByZXR1cm4KCgovLyBzbWFydF9jb250cmFjdHMvYWdlbnRfcGFzcy9jb250cmFjdC5hbGdvLnRzOjpBZ2VudFBhc3MucmVnaXN0ZXJBZ2VudFtyb3V0aW5nXSgpIC0+IHZvaWQ6CnJlZ2lzdGVyQWdlbnQ6CiAgICAvLyBzbWFydF9jb250cmFjdHMvYWdlbnRfcGFzcy9jb250cmFjdC5hbGdvLnRzOjQ0CiAgICAvLyBwdWJsaWMgcmVnaXN0ZXJBZ2VudChuYW1lOiBzdHJpbmcsIG1ldGFkYXRhOiBzdHJpbmcpOiB1aW50NjQgewogICAgdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMQogICAgZHVwCiAgICBpbnRjXzAgLy8gMAogICAgZXh0cmFjdF91aW50MTYgLy8gb24gZXJyb3I6IGludmFsaWQgYXJyYXkgbGVuZ3RoIGhlYWRlcgogICAgaW50Y18yIC8vIDIKICAgICsKICAgIGRpZyAxCiAgICBsZW4KICAgID09CiAgICBhc3NlcnQgLy8gaW52YWxpZCBudW1iZXIgb2YgYnl0ZXMgZm9yIGFyYzQuZHluYW1pY19hcnJheTxhcmM0LnVpbnQ4PgogICAgZXh0cmFjdCAyIDAKICAgIHR4bmEgQXBwbGljYXRpb25BcmdzIDIKICAgIGR1cAogICAgaW50Y18wIC8vIDAKICAgIGV4dHJhY3RfdWludDE2IC8vIG9uIGVycm9yOiBpbnZhbGlkIGFycmF5IGxlbmd0aCBoZWFkZXIKICAgIGludGNfMiAvLyAyCiAgICArCiAgICBkaWcgMQogICAgbGVuCiAgICA9PQogICAgYXNzZXJ0IC8vIGludmFsaWQgbnVtYmVyIG9mIGJ5dGVzIGZvciBhcmM0LmR5bmFtaWNfYXJyYXk8YXJjNC51aW50OD4KICAgIGV4dHJhY3QgMiAwCiAgICAvLyBzbWFydF9jb250cmFjdHMvYWdlbnRfcGFzcy9jb250cmFjdC5hbGdvLnRzOjQ1CiAgICAvLyBjb25zdCBhZ2VudElkOiB1aW50NjQgPSB0aGlzLm5leHRBZ2VudElkLnZhbHVlCiAgICBpbnRjXzAgLy8gMAogICAgLy8gc21hcnRfY29udHJhY3RzL2FnZW50X3Bhc3MvY29udHJhY3QuYWxnby50czozMgogICAgLy8gbmV4dEFnZW50SWQgPSBHbG9iYWxTdGF0ZTx1aW50NjQ+KHsga2V5OiAnbmV4dElkJyB9KQogICAgYnl0ZWNfMiAvLyAibmV4dElkIgogICAgLy8gc21hcnRfY29udHJhY3RzL2FnZW50X3Bhc3MvY29udHJhY3QuYWxnby50czo0NQogICAgLy8gY29uc3QgYWdlbnRJZDogdWludDY0ID0gdGhpcy5uZXh0QWdlbnRJZC52YWx1ZQogICAgYXBwX2dsb2JhbF9nZXRfZXgKICAgIGFzc2VydCAvLyBjaGVjayBHbG9iYWxTdGF0ZSBleGlzdHMKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hZ2VudF9wYXNzL2NvbnRyYWN0LmFsZ28udHM6NDYKICAgIC8vIHRoaXMubmV4dEFnZW50SWQudmFsdWUgPSBhZ2VudElkICsgVWludDY0KDEpCiAgICBkdXAKICAgIGludGNfMSAvLyAxCiAgICArCiAgICAvLyBzbWFydF9jb250cmFjdHMvYWdlbnRfcGFzcy9jb250cmFjdC5hbGdvLnRzOjMyCiAgICAvLyBuZXh0QWdlbnRJZCA9IEdsb2JhbFN0YXRlPHVpbnQ2ND4oeyBrZXk6ICduZXh0SWQnIH0pCiAgICBieXRlY18yIC8vICJuZXh0SWQiCiAgICAvLyBzbWFydF9jb250cmFjdHMvYWdlbnRfcGFzcy9jb250cmFjdC5hbGdvLnRzOjQ2CiAgICAvLyB0aGlzLm5leHRBZ2VudElkLnZhbHVlID0gYWdlbnRJZCArIFVpbnQ2NCgxKQogICAgc3dhcAogICAgYXBwX2dsb2JhbF9wdXQKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hZ2VudF9wYXNzL2NvbnRyYWN0LmFsZ28udHM6NDkKICAgIC8vIG93bmVyOiBUeG4uc2VuZGVyLAogICAgdHhuIFNlbmRlcgogICAgLy8gc21hcnRfY29udHJhY3RzL2FnZW50X3Bhc3MvY29udHJhY3QuYWxnby50czo1MgogICAgLy8gY3JlYXRlZEF0OiBHbG9iYWwubGF0ZXN0VGltZXN0YW1wLAogICAgZ2xvYmFsIExhdGVzdFRpbWVzdGFtcAogICAgLy8gc21hcnRfY29udHJhY3RzL2FnZW50X3Bhc3MvY29udHJhY3QuYWxnby50czo0OC01MwogICAgLy8gY29uc3QgaW5mbzogQWdlbnRJbmZvID0gewogICAgLy8gICBvd25lcjogVHhuLnNlbmRlciwKICAgIC8vICAgbmFtZTogbmFtZSwKICAgIC8vICAgbWV0YWRhdGE6IG1ldGFkYXRhLAogICAgLy8gICBjcmVhdGVkQXQ6IEdsb2JhbC5sYXRlc3RUaW1lc3RhbXAsCiAgICAvLyB9CiAgICBkaWcgNAogICAgbGVuCiAgICBpdG9iCiAgICBleHRyYWN0IDYgMgogICAgdW5jb3ZlciA1CiAgICBjb25jYXQKICAgIHVuY292ZXIgMgogICAgcHVzaGJ5dGVzIDB4MDAyYwogICAgY29uY2F0CiAgICBkaWcgMQogICAgbGVuCiAgICBwdXNoaW50IDQ0IC8vIDQ0CiAgICArCiAgICBkaWcgNQogICAgbGVuCiAgICBpdG9iCiAgICBleHRyYWN0IDYgMgogICAgdW5jb3ZlciA2CiAgICBjb25jYXQKICAgIHN3YXAKICAgIGl0b2IKICAgIGV4dHJhY3QgNiAyCiAgICB1bmNvdmVyIDIKICAgIHN3YXAKICAgIGNvbmNhdAogICAgdW5jb3ZlciAzCiAgICBpdG9iCiAgICBjb25jYXQKICAgIHVuY292ZXIgMgogICAgY29uY2F0CiAgICBzd2FwCiAgICBjb25jYXQKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hZ2VudF9wYXNzL2NvbnRyYWN0LmFsZ28udHM6NTQKICAgIC8vIHRoaXMuYWdlbnRzKGFnZW50SWQpLnZhbHVlID0gY2xvbmUoaW5mbykKICAgIHN3YXAKICAgIGl0b2IKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hZ2VudF9wYXNzL2NvbnRyYWN0LmFsZ28udHM6MzMKICAgIC8vIGFnZW50cyA9IEJveE1hcDx1aW50NjQsIEFnZW50SW5mbz4oeyBrZXlQcmVmaXg6ICdhJyB9KQogICAgYnl0ZWNfMSAvLyAiYSIKICAgIGRpZyAxCiAgICBjb25jYXQKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hZ2VudF9wYXNzL2NvbnRyYWN0LmFsZ28udHM6NTQKICAgIC8vIHRoaXMuYWdlbnRzKGFnZW50SWQpLnZhbHVlID0gY2xvbmUoaW5mbykKICAgIGR1cAogICAgYm94X2RlbAogICAgcG9wCiAgICB1bmNvdmVyIDIKICAgIGJveF9wdXQKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hZ2VudF9wYXNzL2NvbnRyYWN0LmFsZ28udHM6NDQKICAgIC8vIHB1YmxpYyByZWdpc3RlckFnZW50KG5hbWU6IHN0cmluZywgbWV0YWRhdGE6IHN0cmluZyk6IHVpbnQ2NCB7CiAgICBieXRlY18wIC8vIDB4MTUxZjdjNzUKICAgIHN3YXAKICAgIGNvbmNhdAogICAgbG9nCiAgICBpbnRjXzEgLy8gMQogICAgcmV0dXJuCgoKLy8gc21hcnRfY29udHJhY3RzL2FnZW50X3Bhc3MvY29udHJhY3QuYWxnby50czo6QWdlbnRQYXNzLmdyYW50Q29uc2VudFtyb3V0aW5nXSgpIC0+IHZvaWQ6CmdyYW50Q29uc2VudDoKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hZ2VudF9wYXNzL2NvbnRyYWN0LmFsZ28udHM6NTgKICAgIC8vIHB1YmxpYyBncmFudENvbnNlbnQoYWdlbnRJZDogdWludDY0LCBzY29wZTogc3RyaW5nLCBleHBpcmVzQXQ6IHVpbnQ2NCk6IHZvaWQgewogICAgdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMQogICAgZHVwCiAgICBsZW4KICAgIGludGNfMyAvLyA4CiAgICA9PQogICAgYXNzZXJ0IC8vIGludmFsaWQgbnVtYmVyIG9mIGJ5dGVzIGZvciBhcmM0LnVpbnQ2NAogICAgYnRvaQogICAgdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMgogICAgZHVwCiAgICBpbnRjXzAgLy8gMAogICAgZXh0cmFjdF91aW50MTYgLy8gb24gZXJyb3I6IGludmFsaWQgYXJyYXkgbGVuZ3RoIGhlYWRlcgogICAgaW50Y18yIC8vIDIKICAgICsKICAgIGRpZyAxCiAgICBsZW4KICAgID09CiAgICBhc3NlcnQgLy8gaW52YWxpZCBudW1iZXIgb2YgYnl0ZXMgZm9yIGFyYzQuZHluYW1pY19hcnJheTxhcmM0LnVpbnQ4PgogICAgZXh0cmFjdCAyIDAKICAgIHR4bmEgQXBwbGljYXRpb25BcmdzIDMKICAgIGR1cAogICAgbGVuCiAgICBpbnRjXzMgLy8gOAogICAgPT0KICAgIGFzc2VydCAvLyBpbnZhbGlkIG51bWJlciBvZiBieXRlcyBmb3IgYXJjNC51aW50NjQKICAgIGJ0b2kKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hZ2VudF9wYXNzL2NvbnRyYWN0LmFsZ28udHM6NTkKICAgIC8vIGFzc2VydCh0aGlzLmFnZW50cyhhZ2VudElkKS5leGlzdHMsICdhZ2VudCBub3QgZm91bmQnKQogICAgdW5jb3ZlciAyCiAgICBpdG9iCiAgICAvLyBzbWFydF9jb250cmFjdHMvYWdlbnRfcGFzcy9jb250cmFjdC5hbGdvLnRzOjMzCiAgICAvLyBhZ2VudHMgPSBCb3hNYXA8dWludDY0LCBBZ2VudEluZm8+KHsga2V5UHJlZml4OiAnYScgfSkKICAgIGJ5dGVjXzEgLy8gImEiCiAgICBkaWcgMQogICAgY29uY2F0CiAgICAvLyBzbWFydF9jb250cmFjdHMvYWdlbnRfcGFzcy9jb250cmFjdC5hbGdvLnRzOjU5CiAgICAvLyBhc3NlcnQodGhpcy5hZ2VudHMoYWdlbnRJZCkuZXhpc3RzLCAnYWdlbnQgbm90IGZvdW5kJykKICAgIGR1cAogICAgYm94X2xlbgogICAgYnVyeSAxCiAgICBhc3NlcnQgLy8gYWdlbnQgbm90IGZvdW5kCiAgICAvLyBzbWFydF9jb250cmFjdHMvYWdlbnRfcGFzcy9jb250cmFjdC5hbGdvLnRzOjYwLTYxCiAgICAvLyBjb25zdCBhZ2VudCA9IGNsb25lKHRoaXMuYWdlbnRzKGFnZW50SWQpLnZhbHVlKQogICAgLy8gYXNzZXJ0KGFnZW50Lm93bmVyID09PSBUeG4uc2VuZGVyLCAnbm90IG93bmVyJykKICAgIGludGNfMCAvLyAwCiAgICBwdXNoaW50IDMyIC8vIDMyCiAgICBib3hfZXh0cmFjdAogICAgLy8gc21hcnRfY29udHJhY3RzL2FnZW50X3Bhc3MvY29udHJhY3QuYWxnby50czo2MQogICAgLy8gYXNzZXJ0KGFnZW50Lm93bmVyID09PSBUeG4uc2VuZGVyLCAnbm90IG93bmVyJykKICAgIHR4biBTZW5kZXIKICAgID09CiAgICBhc3NlcnQgLy8gbm90IG93bmVyCiAgICAvLyBzbWFydF9jb250cmFjdHMvYWdlbnRfcGFzcy9jb250cmFjdC5hbGdvLnRzOjYyCiAgICAvLyBhc3NlcnQoZXhwaXJlc0F0ID4gR2xvYmFsLmxhdGVzdFRpbWVzdGFtcCwgJ2V4cGlyeSBtdXN0IGJlIGluIGZ1dHVyZScpCiAgICBkaWcgMQogICAgZ2xvYmFsIExhdGVzdFRpbWVzdGFtcAogICAgPgogICAgYXNzZXJ0IC8vIGV4cGlyeSBtdXN0IGJlIGluIGZ1dHVyZQogICAgLy8gc21hcnRfY29udHJhY3RzL2FnZW50X3Bhc3MvY29udHJhY3QuYWxnby50czo2NAogICAgLy8gY29uc3QgcmVjb3JkOiBDb25zZW50UmVjb3JkID0geyBleHBpcmVzQXQ6IGV4cGlyZXNBdCB9CiAgICBzd2FwCiAgICBpdG9iCiAgICAvLyBzbWFydF9jb250cmFjdHMvYWdlbnRfcGFzcy9jb250cmFjdC5hbGdvLnRzOjY1CiAgICAvLyB0aGlzLmNvbnNlbnRzKHsgYWdlbnRJZDogYWdlbnRJZCwgc2NvcGU6IHNjb3BlIH0pLnZhbHVlID0gY2xvbmUocmVjb3JkKQogICAgZGlnIDIKICAgIGxlbgogICAgaXRvYgogICAgZXh0cmFjdCA2IDIKICAgIHVuY292ZXIgMwogICAgY29uY2F0CiAgICB1bmNvdmVyIDIKICAgIGJ5dGVjXzMgLy8gMHgwMDBhCiAgICBjb25jYXQKICAgIHN3YXAKICAgIGNvbmNhdAogICAgLy8gc21hcnRfY29udHJhY3RzL2FnZW50X3Bhc3MvY29udHJhY3QuYWxnby50czozNAogICAgLy8gY29uc2VudHMgPSBCb3hNYXA8Q29uc2VudEtleSwgQ29uc2VudFJlY29yZD4oeyBrZXlQcmVmaXg6ICdjJyB9KQogICAgYnl0ZWMgNCAvLyAiYyIKICAgIHN3YXAKICAgIGNvbmNhdAogICAgLy8gc21hcnRfY29udHJhY3RzL2FnZW50X3Bhc3MvY29udHJhY3QuYWxnby50czo2NQogICAgLy8gdGhpcy5jb25zZW50cyh7IGFnZW50SWQ6IGFnZW50SWQsIHNjb3BlOiBzY29wZSB9KS52YWx1ZSA9IGNsb25lKHJlY29yZCkKICAgIHN3YXAKICAgIGJveF9wdXQKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hZ2VudF9wYXNzL2NvbnRyYWN0LmFsZ28udHM6NTgKICAgIC8vIHB1YmxpYyBncmFudENvbnNlbnQoYWdlbnRJZDogdWludDY0LCBzY29wZTogc3RyaW5nLCBleHBpcmVzQXQ6IHVpbnQ2NCk6IHZvaWQgewogICAgaW50Y18xIC8vIDEKICAgIHJldHVybgoKCi8vIHNtYXJ0X2NvbnRyYWN0cy9hZ2VudF9wYXNzL2NvbnRyYWN0LmFsZ28udHM6OkFnZW50UGFzcy5yZXZva2VDb25zZW50W3JvdXRpbmddKCkgLT4gdm9pZDoKcmV2b2tlQ29uc2VudDoKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hZ2VudF9wYXNzL2NvbnRyYWN0LmFsZ28udHM6NjgKICAgIC8vIHB1YmxpYyByZXZva2VDb25zZW50KGFnZW50SWQ6IHVpbnQ2NCwgc2NvcGU6IHN0cmluZyk6IHZvaWQgewogICAgdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMQogICAgZHVwCiAgICBsZW4KICAgIGludGNfMyAvLyA4CiAgICA9PQogICAgYXNzZXJ0IC8vIGludmFsaWQgbnVtYmVyIG9mIGJ5dGVzIGZvciBhcmM0LnVpbnQ2NAogICAgYnRvaQogICAgdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMgogICAgZHVwCiAgICBpbnRjXzAgLy8gMAogICAgZXh0cmFjdF91aW50MTYgLy8gb24gZXJyb3I6IGludmFsaWQgYXJyYXkgbGVuZ3RoIGhlYWRlcgogICAgaW50Y18yIC8vIDIKICAgICsKICAgIGRpZyAxCiAgICBsZW4KICAgID09CiAgICBhc3NlcnQgLy8gaW52YWxpZCBudW1iZXIgb2YgYnl0ZXMgZm9yIGFyYzQuZHluYW1pY19hcnJheTxhcmM0LnVpbnQ4PgogICAgZXh0cmFjdCAyIDAKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hZ2VudF9wYXNzL2NvbnRyYWN0LmFsZ28udHM6NjkKICAgIC8vIGFzc2VydCh0aGlzLmFnZW50cyhhZ2VudElkKS5leGlzdHMsICdhZ2VudCBub3QgZm91bmQnKQogICAgc3dhcAogICAgaXRvYgogICAgLy8gc21hcnRfY29udHJhY3RzL2FnZW50X3Bhc3MvY29udHJhY3QuYWxnby50czozMwogICAgLy8gYWdlbnRzID0gQm94TWFwPHVpbnQ2NCwgQWdlbnRJbmZvPih7IGtleVByZWZpeDogJ2EnIH0pCiAgICBieXRlY18xIC8vICJhIgogICAgZGlnIDEKICAgIGNvbmNhdAogICAgLy8gc21hcnRfY29udHJhY3RzL2FnZW50X3Bhc3MvY29udHJhY3QuYWxnby50czo2OQogICAgLy8gYXNzZXJ0KHRoaXMuYWdlbnRzKGFnZW50SWQpLmV4aXN0cywgJ2FnZW50IG5vdCBmb3VuZCcpCiAgICBkdXAKICAgIGJveF9sZW4KICAgIGJ1cnkgMQogICAgYXNzZXJ0IC8vIGFnZW50IG5vdCBmb3VuZAogICAgLy8gc21hcnRfY29udHJhY3RzL2FnZW50X3Bhc3MvY29udHJhY3QuYWxnby50czo3MC03MQogICAgLy8gY29uc3QgYWdlbnQgPSBjbG9uZSh0aGlzLmFnZW50cyhhZ2VudElkKS52YWx1ZSkKICAgIC8vIGFzc2VydChhZ2VudC5vd25lciA9PT0gVHhuLnNlbmRlciwgJ25vdCBvd25lcicpCiAgICBpbnRjXzAgLy8gMAogICAgcHVzaGludCAzMiAvLyAzMgogICAgYm94X2V4dHJhY3QKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hZ2VudF9wYXNzL2NvbnRyYWN0LmFsZ28udHM6NzEKICAgIC8vIGFzc2VydChhZ2VudC5vd25lciA9PT0gVHhuLnNlbmRlciwgJ25vdCBvd25lcicpCiAgICB0eG4gU2VuZGVyCiAgICA9PQogICAgYXNzZXJ0IC8vIG5vdCBvd25lcgogICAgLy8gc21hcnRfY29udHJhY3RzL2FnZW50X3Bhc3MvY29udHJhY3QuYWxnby50czo3MwogICAgLy8gdGhpcy5jb25zZW50cyh7IGFnZW50SWQ6IGFnZW50SWQsIHNjb3BlOiBzY29wZSB9KS5kZWxldGUoKQogICAgZGlnIDEKICAgIGxlbgogICAgaXRvYgogICAgZXh0cmFjdCA2IDIKICAgIHVuY292ZXIgMgogICAgY29uY2F0CiAgICBzd2FwCiAgICBieXRlY18zIC8vIDB4MDAwYQogICAgY29uY2F0CiAgICBzd2FwCiAgICBjb25jYXQKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hZ2VudF9wYXNzL2NvbnRyYWN0LmFsZ28udHM6MzQKICAgIC8vIGNvbnNlbnRzID0gQm94TWFwPENvbnNlbnRLZXksIENvbnNlbnRSZWNvcmQ+KHsga2V5UHJlZml4OiAnYycgfSkKICAgIGJ5dGVjIDQgLy8gImMiCiAgICBzd2FwCiAgICBjb25jYXQKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hZ2VudF9wYXNzL2NvbnRyYWN0LmFsZ28udHM6NzMKICAgIC8vIHRoaXMuY29uc2VudHMoeyBhZ2VudElkOiBhZ2VudElkLCBzY29wZTogc2NvcGUgfSkuZGVsZXRlKCkKICAgIGJveF9kZWwKICAgIHBvcAogICAgLy8gc21hcnRfY29udHJhY3RzL2FnZW50X3Bhc3MvY29udHJhY3QuYWxnby50czo2OAogICAgLy8gcHVibGljIHJldm9rZUNvbnNlbnQoYWdlbnRJZDogdWludDY0LCBzY29wZTogc3RyaW5nKTogdm9pZCB7CiAgICBpbnRjXzEgLy8gMQogICAgcmV0dXJuCgoKLy8gc21hcnRfY29udHJhY3RzL2FnZW50X3Bhc3MvY29udHJhY3QuYWxnby50czo6QWdlbnRQYXNzLnZlcmlmeUNvbnNlbnRbcm91dGluZ10oKSAtPiB2b2lkOgp2ZXJpZnlDb25zZW50OgogICAgLy8gc21hcnRfY29udHJhY3RzL2FnZW50X3Bhc3MvY29udHJhY3QuYWxnby50czo3NgogICAgLy8gQGFiaW1ldGhvZCh7IHJlYWRvbmx5OiB0cnVlIH0pCiAgICB0eG5hIEFwcGxpY2F0aW9uQXJncyAxCiAgICBkdXAKICAgIGxlbgogICAgaW50Y18zIC8vIDgKICAgID09CiAgICBhc3NlcnQgLy8gaW52YWxpZCBudW1iZXIgb2YgYnl0ZXMgZm9yIGFyYzQudWludDY0CiAgICBidG9pCiAgICB0eG5hIEFwcGxpY2F0aW9uQXJncyAyCiAgICBkdXAKICAgIGludGNfMCAvLyAwCiAgICBleHRyYWN0X3VpbnQxNiAvLyBvbiBlcnJvcjogaW52YWxpZCBhcnJheSBsZW5ndGggaGVhZGVyCiAgICBpbnRjXzIgLy8gMgogICAgKwogICAgZGlnIDEKICAgIGxlbgogICAgPT0KICAgIGFzc2VydCAvLyBpbnZhbGlkIG51bWJlciBvZiBieXRlcyBmb3IgYXJjNC5keW5hbWljX2FycmF5PGFyYzQudWludDg+CiAgICBleHRyYWN0IDIgMAogICAgLy8gc21hcnRfY29udHJhY3RzL2FnZW50X3Bhc3MvY29udHJhY3QuYWxnby50czo3OAogICAgLy8gY29uc3Qga2V5OiBDb25zZW50S2V5ID0geyBhZ2VudElkOiBhZ2VudElkLCBzY29wZTogc2NvcGUgfQogICAgc3dhcAogICAgaXRvYgogICAgZGlnIDEKICAgIGxlbgogICAgaXRvYgogICAgZXh0cmFjdCA2IDIKICAgIHVuY292ZXIgMgogICAgY29uY2F0CiAgICBzd2FwCiAgICBieXRlY18zIC8vIDB4MDAwYQogICAgY29uY2F0CiAgICBzd2FwCiAgICBjb25jYXQKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hZ2VudF9wYXNzL2NvbnRyYWN0LmFsZ28udHM6MzQKICAgIC8vIGNvbnNlbnRzID0gQm94TWFwPENvbnNlbnRLZXksIENvbnNlbnRSZWNvcmQ+KHsga2V5UHJlZml4OiAnYycgfSkKICAgIGJ5dGVjIDQgLy8gImMiCiAgICBzd2FwCiAgICBjb25jYXQKICAgIGR1cAogICAgLy8gc21hcnRfY29udHJhY3RzL2FnZW50X3Bhc3MvY29udHJhY3QuYWxnby50czo3OQogICAgLy8gaWYgKCF0aGlzLmNvbnNlbnRzKGtleSkuZXhpc3RzKSB7CiAgICBib3hfbGVuCiAgICBidXJ5IDEKICAgIGJueiB2ZXJpZnlDb25zZW50X2FmdGVyX2lmX2Vsc2VAMwogICAgLy8gc21hcnRfY29udHJhY3RzL2FnZW50X3Bhc3MvY29udHJhY3QuYWxnby50czo4MAogICAgLy8gcmV0dXJuIGZhbHNlCiAgICBpbnRjXzAgLy8gMAoKdmVyaWZ5Q29uc2VudF9hZnRlcl9pbmxpbmVkX3NtYXJ0X2NvbnRyYWN0cy9hZ2VudF9wYXNzL2NvbnRyYWN0LmFsZ28udHM6OkFnZW50UGFzcy52ZXJpZnlDb25zZW50QDQ6CiAgICAvLyBzbWFydF9jb250cmFjdHMvYWdlbnRfcGFzcy9jb250cmFjdC5hbGdvLnRzOjc2CiAgICAvLyBAYWJpbWV0aG9kKHsgcmVhZG9ubHk6IHRydWUgfSkKICAgIHB1c2hieXRlcyAweDAwCiAgICBpbnRjXzAgLy8gMAogICAgdW5jb3ZlciAyCiAgICBzZXRiaXQKICAgIGJ5dGVjXzAgLy8gMHgxNTFmN2M3NQogICAgc3dhcAogICAgY29uY2F0CiAgICBsb2cKICAgIGludGNfMSAvLyAxCiAgICByZXR1cm4KCnZlcmlmeUNvbnNlbnRfYWZ0ZXJfaWZfZWxzZUAzOgogICAgLy8gc21hcnRfY29udHJhY3RzL2FnZW50X3Bhc3MvY29udHJhY3QuYWxnby50czo4MgogICAgLy8gY29uc3QgcmVjb3JkID0gY2xvbmUodGhpcy5jb25zZW50cyhrZXkpLnZhbHVlKQogICAgZHVwCiAgICBib3hfZ2V0CiAgICBhc3NlcnQgLy8gQm94IG11c3QgaGF2ZSB2YWx1ZQogICAgLy8gc21hcnRfY29udHJhY3RzL2FnZW50X3Bhc3MvY29udHJhY3QuYWxnby50czo4MwogICAgLy8gcmV0dXJuIHJlY29yZC5leHBpcmVzQXQgPiBHbG9iYWwubGF0ZXN0VGltZXN0YW1wCiAgICBpbnRjXzAgLy8gMAogICAgZXh0cmFjdF91aW50NjQKICAgIGdsb2JhbCBMYXRlc3RUaW1lc3RhbXAKICAgID4KICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hZ2VudF9wYXNzL2NvbnRyYWN0LmFsZ28udHM6NzYKICAgIC8vIEBhYmltZXRob2QoeyByZWFkb25seTogdHJ1ZSB9KQogICAgYiB2ZXJpZnlDb25zZW50X2FmdGVyX2lubGluZWRfc21hcnRfY29udHJhY3RzL2FnZW50X3Bhc3MvY29udHJhY3QuYWxnby50czo6QWdlbnRQYXNzLnZlcmlmeUNvbnNlbnRANAoKCi8vIHNtYXJ0X2NvbnRyYWN0cy9hZ2VudF9wYXNzL2NvbnRyYWN0LmFsZ28udHM6OkFnZW50UGFzcy5nZXRBZ2VudFtyb3V0aW5nXSgpIC0+IHZvaWQ6CmdldEFnZW50OgogICAgLy8gc21hcnRfY29udHJhY3RzL2FnZW50X3Bhc3MvY29udHJhY3QuYWxnby50czo4NgogICAgLy8gQGFiaW1ldGhvZCh7IHJlYWRvbmx5OiB0cnVlIH0pCiAgICB0eG5hIEFwcGxpY2F0aW9uQXJncyAxCiAgICBkdXAKICAgIGxlbgogICAgaW50Y18zIC8vIDgKICAgID09CiAgICBhc3NlcnQgLy8gaW52YWxpZCBudW1iZXIgb2YgYnl0ZXMgZm9yIGFyYzQudWludDY0CiAgICBidG9pCiAgICAvLyBzbWFydF9jb250cmFjdHMvYWdlbnRfcGFzcy9jb250cmFjdC5hbGdvLnRzOjg4CiAgICAvLyBhc3NlcnQodGhpcy5hZ2VudHMoYWdlbnRJZCkuZXhpc3RzLCAnYWdlbnQgbm90IGZvdW5kJykKICAgIGl0b2IKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hZ2VudF9wYXNzL2NvbnRyYWN0LmFsZ28udHM6MzMKICAgIC8vIGFnZW50cyA9IEJveE1hcDx1aW50NjQsIEFnZW50SW5mbz4oeyBrZXlQcmVmaXg6ICdhJyB9KQogICAgYnl0ZWNfMSAvLyAiYSIKICAgIHN3YXAKICAgIGNvbmNhdAogICAgLy8gc21hcnRfY29udHJhY3RzL2FnZW50X3Bhc3MvY29udHJhY3QuYWxnby50czo4OAogICAgLy8gYXNzZXJ0KHRoaXMuYWdlbnRzKGFnZW50SWQpLmV4aXN0cywgJ2FnZW50IG5vdCBmb3VuZCcpCiAgICBkdXAKICAgIGJveF9sZW4KICAgIGJ1cnkgMQogICAgYXNzZXJ0IC8vIGFnZW50IG5vdCBmb3VuZAogICAgLy8gc21hcnRfY29udHJhY3RzL2FnZW50X3Bhc3MvY29udHJhY3QuYWxnby50czo4OQogICAgLy8gcmV0dXJuIGNsb25lKHRoaXMuYWdlbnRzKGFnZW50SWQpLnZhbHVlKQogICAgYm94X2dldAogICAgcG9wCiAgICAvLyBzbWFydF9jb250cmFjdHMvYWdlbnRfcGFzcy9jb250cmFjdC5hbGdvLnRzOjg2CiAgICAvLyBAYWJpbWV0aG9kKHsgcmVhZG9ubHk6IHRydWUgfSkKICAgIGJ5dGVjXzAgLy8gMHgxNTFmN2M3NQogICAgc3dhcAogICAgY29uY2F0CiAgICBsb2cKICAgIGludGNfMSAvLyAxCiAgICByZXR1cm4K","clear":"I3ByYWdtYSB2ZXJzaW9uIDExCiNwcmFnbWEgdHlwZXRyYWNrIGZhbHNlCgovLyBAYWxnb3JhbmRmb3VuZGF0aW9uL2FsZ29yYW5kLXR5cGVzY3JpcHQvYmFzZS1jb250cmFjdC5kLnRzOjpCYXNlQ29udHJhY3QuY2xlYXJTdGF0ZVByb2dyYW0oKSAtPiB1aW50NjQ6Cm1haW46CiAgICBwdXNoaW50IDEgLy8gMQogICAgcmV0dXJuCg=="},"byteCode":{"approval":"CyAEAAECCCYFBBUffHUBYQZuZXh0SWQCAAoBYzEZFEQxGEEAMoIGBAK+zhEE9VIZUgROfOvmBH9k7lsEX6THlgTNlkXrNhoAjgYAFAA9ALABBgFJAZcAgAS4RHs2NhoAjgEAAQAqI2cjQzYaAUkiWSQISwEVEkRXAgCAB0hlbGxvLCBMUEkVFlcGAkxQKExQsCNDNhoBSSJZJAhLARUSRFcCADYaAkkiWSQISwEVEkRXAgAiKmVESSMIKkxnMQAyB0sEFRZXBgJPBVBPAoACACxQSwEVgSwISwUVFlcGAk8GUEwWVwYCTwJMUE8DFlBPAlBMUEwWKUsBUEm8SE8CvyhMULAjQzYaAUkVJRJEFzYaAkkiWSQISwEVEkRXAgA2GgNJFSUSRBdPAhYpSwFQSb1FAUQigSC6MQASREsBMgcNREwWSwIVFlcGAk8DUE8CK1BMUCcETFBMvyNDNhoBSRUlEkQXNhoCSSJZJAhLARUSRFcCAEwWKUsBUEm9RQFEIoEgujEAEkRLARUWVwYCTwJQTCtQTFAnBExQvEgjQzYaAUkVJRJEFzYaAkkiWSQISwEVEkRXAgBMFksBFRZXBgJPAlBMK1BMUCcETFBJvUUBQAAOIoABACJPAlQoTFCwI0NJvkQiWzIHDUL/6DYaAUkVJRJEFxYpTFBJvUUBRL5IKExQsCND","clear":"C4EBQw=="},"compilerInfo":{"compiler":"puya","compilerVersion":{"major":5,"minor":3,"patch":2}},"events":[],"templateVariables":{}} as unknown as Arc56Contract
 
 /**
  * A state record containing binary data
@@ -63,6 +63,48 @@ export type Expand<T> = T extends (...args: infer A) => infer R
     : never
 
 
+// Type definitions for ARC-56 structs
+
+export type AgentInfo = {
+  owner: string,
+  name: string,
+  metadata: string,
+  createdAt: bigint
+}
+
+
+/**
+ * Converts the ABI tuple representation of a AgentInfo to the struct representation
+ */
+export function AgentInfoFromTuple(abiTuple: [string, string, string, bigint]) {
+  return getABIStructFromABITuple(abiTuple, APP_SPEC.structs.AgentInfo, APP_SPEC.structs) as AgentInfo
+}
+
+export type ConsentKey = {
+  agentId: bigint,
+  scope: string
+}
+
+
+/**
+ * Converts the ABI tuple representation of a ConsentKey to the struct representation
+ */
+export function ConsentKeyFromTuple(abiTuple: [bigint, string]) {
+  return getABIStructFromABITuple(abiTuple, APP_SPEC.structs.ConsentKey, APP_SPEC.structs) as ConsentKey
+}
+
+export type ConsentRecord = {
+  expiresAt: bigint
+}
+
+
+/**
+ * Converts the ABI tuple representation of a ConsentRecord to the struct representation
+ */
+export function ConsentRecordFromTuple(abiTuple: [bigint]) {
+  return getABIStructFromABITuple(abiTuple, APP_SPEC.structs.ConsentRecord, APP_SPEC.structs) as ConsentRecord
+}
+
 /**
  * The argument types for the AgentPass contract
  */
@@ -71,15 +113,42 @@ export type AgentPassArgs = {
    * The object representation of the arguments for each method
    */
   obj: {
+    'createApplication()void': Record<string, never>
     'hello(string)string': {
       name: string
+    }
+    'registerAgent(string,string)uint64': {
+      name: string
+      metadata: string
+    }
+    'grantConsent(uint64,string,uint64)void': {
+      agentId: bigint | number
+      scope: string
+      expiresAt: bigint | number
+    }
+    'revokeConsent(uint64,string)void': {
+      agentId: bigint | number
+      scope: string
+    }
+    'verifyConsent(uint64,string)bool': {
+      agentId: bigint | number
+      scope: string
+    }
+    'getAgent(uint64)(address,string,string,uint64)': {
+      agentId: bigint | number
     }
   }
   /**
    * The tuple representation of the arguments for each method
    */
   tuple: {
+    'createApplication()void': []
     'hello(string)string': [name: string]
+    'registerAgent(string,string)uint64': [name: string, metadata: string]
+    'grantConsent(uint64,string,uint64)void': [agentId: bigint | number, scope: string, expiresAt: bigint | number]
+    'revokeConsent(uint64,string)void': [agentId: bigint | number, scope: string]
+    'verifyConsent(uint64,string)bool': [agentId: bigint | number, scope: string]
+    'getAgent(uint64)(address,string,string,uint64)': [agentId: bigint | number]
   }
 }
 
@@ -87,7 +156,13 @@ export type AgentPassArgs = {
  * The return type for each method
  */
 export type AgentPassReturns = {
+  'createApplication()void': void
   'hello(string)string': string
+  'registerAgent(string,string)uint64': bigint
+  'grantConsent(uint64,string,uint64)void': void
+  'revokeConsent(uint64,string)void': void
+  'verifyConsent(uint64,string)bool': boolean
+  'getAgent(uint64)(address,string,string,uint64)': AgentInfo
 }
 
 /**
@@ -98,11 +173,59 @@ export type AgentPassTypes = {
    * Maps method signatures / names to their argument and return types.
    */
   methods:
+    & Record<'createApplication()void' | 'createApplication', {
+      argsObj: AgentPassArgs['obj']['createApplication()void']
+      argsTuple: AgentPassArgs['tuple']['createApplication()void']
+      returns: AgentPassReturns['createApplication()void']
+    }>
     & Record<'hello(string)string' | 'hello', {
       argsObj: AgentPassArgs['obj']['hello(string)string']
       argsTuple: AgentPassArgs['tuple']['hello(string)string']
       returns: AgentPassReturns['hello(string)string']
     }>
+    & Record<'registerAgent(string,string)uint64' | 'registerAgent', {
+      argsObj: AgentPassArgs['obj']['registerAgent(string,string)uint64']
+      argsTuple: AgentPassArgs['tuple']['registerAgent(string,string)uint64']
+      returns: AgentPassReturns['registerAgent(string,string)uint64']
+    }>
+    & Record<'grantConsent(uint64,string,uint64)void' | 'grantConsent', {
+      argsObj: AgentPassArgs['obj']['grantConsent(uint64,string,uint64)void']
+      argsTuple: AgentPassArgs['tuple']['grantConsent(uint64,string,uint64)void']
+      returns: AgentPassReturns['grantConsent(uint64,string,uint64)void']
+    }>
+    & Record<'revokeConsent(uint64,string)void' | 'revokeConsent', {
+      argsObj: AgentPassArgs['obj']['revokeConsent(uint64,string)void']
+      argsTuple: AgentPassArgs['tuple']['revokeConsent(uint64,string)void']
+      returns: AgentPassReturns['revokeConsent(uint64,string)void']
+    }>
+    & Record<'verifyConsent(uint64,string)bool' | 'verifyConsent', {
+      argsObj: AgentPassArgs['obj']['verifyConsent(uint64,string)bool']
+      argsTuple: AgentPassArgs['tuple']['verifyConsent(uint64,string)bool']
+      returns: AgentPassReturns['verifyConsent(uint64,string)bool']
+    }>
+    & Record<'getAgent(uint64)(address,string,string,uint64)' | 'getAgent', {
+      argsObj: AgentPassArgs['obj']['getAgent(uint64)(address,string,string,uint64)']
+      argsTuple: AgentPassArgs['tuple']['getAgent(uint64)(address,string,string,uint64)']
+      returns: AgentPassReturns['getAgent(uint64)(address,string,string,uint64)']
+    }>
+  /**
+   * Defines the shape of the state of the application.
+   */
+  state: {
+    global: {
+      keys: {
+        nextAgentId: bigint
+      }
+      maps: {}
+    }
+    box: {
+      keys: {}
+      maps: {
+        agents: Map<bigint | number, AgentInfo>
+        consents: Map<ConsentKey, ConsentRecord>
+      }
+    }
+  }
 }
 
 /**
@@ -132,12 +255,23 @@ export type MethodArgs<TSignature extends AgentPassSignatures> = AgentPassTypes[
  */
 export type MethodReturn<TSignature extends AgentPassSignatures> = AgentPassTypes['methods'][TSignature]['returns']
 
+/**
+ * Defines the shape of the keyed global state of the application.
+ */
+export type GlobalKeysState = AgentPassTypes['state']['global']['keys']
+
+/**
+ * Defines the shape of the keyed box state of the application.
+ */
+export type BoxKeysState = AgentPassTypes['state']['box']['keys']
+
 
 /**
  * Defines supported create method params for this smart contract
  */
 export type AgentPassCreateCallParams =
-  | Expand<AppClientBareCallParams & {method?: never} & {onComplete?: OnApplicationComplete.NoOpOC} & CreateSchema>
+  | Expand<CallParams<AgentPassArgs['obj']['createApplication()void'] | AgentPassArgs['tuple']['createApplication()void']> & {method: 'createApplication'} & {onComplete?: OnApplicationComplete.NoOpOC} & CreateSchema>
+  | Expand<CallParams<AgentPassArgs['obj']['createApplication()void'] | AgentPassArgs['tuple']['createApplication()void']> & {method: 'createApplication()void'} & {onComplete?: OnApplicationComplete.NoOpOC} & CreateSchema>
 /**
  * Defines arguments required for the deploy method.
  */
@@ -154,6 +288,36 @@ export type AgentPassDeployParams = Expand<Omit<AppFactoryDeployParams, 'createP
  */
 export abstract class AgentPassParamsFactory {
   /**
+   * Gets available create ABI call param factories
+   */
+  static get create() {
+    return {
+      _resolveByMethod<TParams extends AgentPassCreateCallParams & {method: string}>(params: TParams) {
+        switch(params.method) {
+          case 'createApplication':
+          case 'createApplication()void':
+            return AgentPassParamsFactory.create.createApplication(params)
+        }
+        throw new Error(`Unknown ' + verb + ' method`)
+      },
+
+      /**
+       * Constructs create ABI call params for the AgentPass smart contract using the createApplication()void ABI method
+       *
+       * @param params Parameters for the call
+       * @returns An `AppClientMethodCallParams` object for the call
+       */
+      createApplication(params: CallParams<AgentPassArgs['obj']['createApplication()void'] | AgentPassArgs['tuple']['createApplication()void']> & AppClientCompilationParams & {onComplete?: OnApplicationComplete.NoOpOC}): AppClientMethodCallParams & AppClientCompilationParams & {onComplete?: OnApplicationComplete.NoOpOC} {
+        return {
+          ...params,
+          method: 'createApplication()void' as const,
+          args: Array.isArray(params.args) ? params.args : [],
+        }
+      },
+    }
+  }
+
+  /**
    * Constructs a no op call for the hello(string)string ABI method
    *
    * @param params Parameters for the call
@@ -164,6 +328,71 @@ export abstract class AgentPassParamsFactory {
       ...params,
       method: 'hello(string)string' as const,
       args: Array.isArray(params.args) ? params.args : [params.args.name],
+    }
+  }
+  /**
+   * Constructs a no op call for the registerAgent(string,string)uint64 ABI method
+   *
+   * @param params Parameters for the call
+   * @returns An `AppClientMethodCallParams` object for the call
+   */
+  static registerAgent(params: CallParams<AgentPassArgs['obj']['registerAgent(string,string)uint64'] | AgentPassArgs['tuple']['registerAgent(string,string)uint64']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete {
+    return {
+      ...params,
+      method: 'registerAgent(string,string)uint64' as const,
+      args: Array.isArray(params.args) ? params.args : [params.args.name, params.args.metadata],
+    }
+  }
+  /**
+   * Constructs a no op call for the grantConsent(uint64,string,uint64)void ABI method
+   *
+   * @param params Parameters for the call
+   * @returns An `AppClientMethodCallParams` object for the call
+   */
+  static grantConsent(params: CallParams<AgentPassArgs['obj']['grantConsent(uint64,string,uint64)void'] | AgentPassArgs['tuple']['grantConsent(uint64,string,uint64)void']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete {
+    return {
+      ...params,
+      method: 'grantConsent(uint64,string,uint64)void' as const,
+      args: Array.isArray(params.args) ? params.args : [params.args.agentId, params.args.scope, params.args.expiresAt],
+    }
+  }
+  /**
+   * Constructs a no op call for the revokeConsent(uint64,string)void ABI method
+   *
+   * @param params Parameters for the call
+   * @returns An `AppClientMethodCallParams` object for the call
+   */
+  static revokeConsent(params: CallParams<AgentPassArgs['obj']['revokeConsent(uint64,string)void'] | AgentPassArgs['tuple']['revokeConsent(uint64,string)void']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete {
+    return {
+      ...params,
+      method: 'revokeConsent(uint64,string)void' as const,
+      args: Array.isArray(params.args) ? params.args : [params.args.agentId, params.args.scope],
+    }
+  }
+  /**
+   * Constructs a no op call for the verifyConsent(uint64,string)bool ABI method
+   *
+   * @param params Parameters for the call
+   * @returns An `AppClientMethodCallParams` object for the call
+   */
+  static verifyConsent(params: CallParams<AgentPassArgs['obj']['verifyConsent(uint64,string)bool'] | AgentPassArgs['tuple']['verifyConsent(uint64,string)bool']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete {
+    return {
+      ...params,
+      method: 'verifyConsent(uint64,string)bool' as const,
+      args: Array.isArray(params.args) ? params.args : [params.args.agentId, params.args.scope],
+    }
+  }
+  /**
+   * Constructs a no op call for the getAgent(uint64)(address,string,string,uint64) ABI method
+   *
+   * @param params Parameters for the call
+   * @returns An `AppClientMethodCallParams` object for the call
+   */
+  static getAgent(params: CallParams<AgentPassArgs['obj']['getAgent(uint64)(address,string,string,uint64)'] | AgentPassArgs['tuple']['getAgent(uint64)(address,string,string,uint64)']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete {
+    return {
+      ...params,
+      method: 'getAgent(uint64)(address,string,string,uint64)' as const,
+      args: Array.isArray(params.args) ? params.args : [params.args.agentId],
     }
   }
 }
@@ -240,6 +469,7 @@ export class AgentPassFactory {
   public async deploy(params: AgentPassDeployParams = {}) {
     const result = await this.appFactory.deploy({
       ...params,
+      createParams: params.createParams?.method ? AgentPassParamsFactory.create._resolveByMethod(params.createParams) : params.createParams ? params.createParams as (AgentPassCreateCallParams & { args: Uint8Array[] }) : undefined,
     })
     return { result: result.result, appClient: new AgentPassClient(result.appClient) }
   }
@@ -253,13 +483,13 @@ export class AgentPassFactory {
      */
     create: {
       /**
-       * Creates a new instance of the AgentPass smart contract using a bare call.
+       * Creates a new instance of the AgentPass smart contract using the createApplication()void ABI method.
        *
-       * @param params The params for the bare (raw) call
-       * @returns The params for a create call
+       * @param params The params for the smart contract call
+       * @returns The create params
        */
-      bare: (params?: Expand<AppClientBareCallParams & AppClientCompilationParams & CreateSchema & {onComplete?: OnApplicationComplete.NoOpOC}>) => {
-        return this.appFactory.params.bare.create(params)
+      createApplication: (params: CallParams<AgentPassArgs['obj']['createApplication()void'] | AgentPassArgs['tuple']['createApplication()void']> & AppClientCompilationParams & CreateSchema & {onComplete?: OnApplicationComplete.NoOpOC} = {args: []}) => {
+        return this.appFactory.params.create(AgentPassParamsFactory.create.createApplication(params))
       },
     },
 
@@ -274,13 +504,13 @@ export class AgentPassFactory {
      */
     create: {
       /**
-       * Creates a new instance of the AgentPass smart contract using a bare call.
+       * Creates a new instance of the AgentPass smart contract using the createApplication()void ABI method.
        *
-       * @param params The params for the bare (raw) call
-       * @returns The transaction for a create call
+       * @param params The params for the smart contract call
+       * @returns The create transaction
        */
-      bare: (params?: Expand<AppClientBareCallParams & AppClientCompilationParams & CreateSchema & {onComplete?: OnApplicationComplete.NoOpOC}>) => {
-        return this.appFactory.createTransaction.bare.create(params)
+      createApplication: (params: CallParams<AgentPassArgs['obj']['createApplication()void'] | AgentPassArgs['tuple']['createApplication()void']> & AppClientCompilationParams & CreateSchema & {onComplete?: OnApplicationComplete.NoOpOC} = {args: []}) => {
+        return this.appFactory.createTransaction.create(AgentPassParamsFactory.create.createApplication(params))
       },
     },
 
@@ -295,14 +525,14 @@ export class AgentPassFactory {
      */
     create: {
       /**
-       * Creates a new instance of the AgentPass smart contract using a bare call.
+       * Creates a new instance of the AgentPass smart contract using an ABI method call using the createApplication()void ABI method.
        *
-       * @param params The params for the bare (raw) call
+       * @param params The params for the smart contract call
        * @returns The create result
        */
-      bare: async (params?: Expand<AppClientBareCallParams & AppClientCompilationParams & CreateSchema & SendParams & {onComplete?: OnApplicationComplete.NoOpOC}>) => {
-        const result = await this.appFactory.send.bare.create(params)
-        return { result: result.result, appClient: new AgentPassClient(result.appClient) }
+      createApplication: async (params: CallParams<AgentPassArgs['obj']['createApplication()void'] | AgentPassArgs['tuple']['createApplication()void']> & AppClientCompilationParams & CreateSchema & SendParams & {onComplete?: OnApplicationComplete.NoOpOC} = {args: []}) => {
+        const result = await this.appFactory.send.create(AgentPassParamsFactory.create.createApplication(params))
+        return { result: { ...result.result, return: result.result.return as unknown as (undefined | AgentPassReturns['createApplication()void']) }, appClient: new AgentPassClient(result.appClient) }
       },
     },
 
@@ -416,6 +646,60 @@ export class AgentPassClient {
       return this.appClient.params.call(AgentPassParamsFactory.hello(params))
     },
 
+    /**
+     * Makes a call to the AgentPass smart contract using the `registerAgent(string,string)uint64` ABI method.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call params
+     */
+    registerAgent: (params: CallParams<AgentPassArgs['obj']['registerAgent(string,string)uint64'] | AgentPassArgs['tuple']['registerAgent(string,string)uint64']> & {onComplete?: OnApplicationComplete.NoOpOC}) => {
+      return this.appClient.params.call(AgentPassParamsFactory.registerAgent(params))
+    },
+
+    /**
+     * Makes a call to the AgentPass smart contract using the `grantConsent(uint64,string,uint64)void` ABI method.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call params
+     */
+    grantConsent: (params: CallParams<AgentPassArgs['obj']['grantConsent(uint64,string,uint64)void'] | AgentPassArgs['tuple']['grantConsent(uint64,string,uint64)void']> & {onComplete?: OnApplicationComplete.NoOpOC}) => {
+      return this.appClient.params.call(AgentPassParamsFactory.grantConsent(params))
+    },
+
+    /**
+     * Makes a call to the AgentPass smart contract using the `revokeConsent(uint64,string)void` ABI method.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call params
+     */
+    revokeConsent: (params: CallParams<AgentPassArgs['obj']['revokeConsent(uint64,string)void'] | AgentPassArgs['tuple']['revokeConsent(uint64,string)void']> & {onComplete?: OnApplicationComplete.NoOpOC}) => {
+      return this.appClient.params.call(AgentPassParamsFactory.revokeConsent(params))
+    },
+
+    /**
+     * Makes a call to the AgentPass smart contract using the `verifyConsent(uint64,string)bool` ABI method.
+     * 
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call params
+     */
+    verifyConsent: (params: CallParams<AgentPassArgs['obj']['verifyConsent(uint64,string)bool'] | AgentPassArgs['tuple']['verifyConsent(uint64,string)bool']> & {onComplete?: OnApplicationComplete.NoOpOC}) => {
+      return this.appClient.params.call(AgentPassParamsFactory.verifyConsent(params))
+    },
+
+    /**
+     * Makes a call to the AgentPass smart contract using the `getAgent(uint64)(address,string,string,uint64)` ABI method.
+     * 
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call params
+     */
+    getAgent: (params: CallParams<AgentPassArgs['obj']['getAgent(uint64)(address,string,string,uint64)'] | AgentPassArgs['tuple']['getAgent(uint64)(address,string,string,uint64)']> & {onComplete?: OnApplicationComplete.NoOpOC}) => {
+      return this.appClient.params.call(AgentPassParamsFactory.getAgent(params))
+    },
+
   }
 
   /**
@@ -440,6 +724,60 @@ export class AgentPassClient {
      */
     hello: (params: CallParams<AgentPassArgs['obj']['hello(string)string'] | AgentPassArgs['tuple']['hello(string)string']> & {onComplete?: OnApplicationComplete.NoOpOC}) => {
       return this.appClient.createTransaction.call(AgentPassParamsFactory.hello(params))
+    },
+
+    /**
+     * Makes a call to the AgentPass smart contract using the `registerAgent(string,string)uint64` ABI method.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call transaction
+     */
+    registerAgent: (params: CallParams<AgentPassArgs['obj']['registerAgent(string,string)uint64'] | AgentPassArgs['tuple']['registerAgent(string,string)uint64']> & {onComplete?: OnApplicationComplete.NoOpOC}) => {
+      return this.appClient.createTransaction.call(AgentPassParamsFactory.registerAgent(params))
+    },
+
+    /**
+     * Makes a call to the AgentPass smart contract using the `grantConsent(uint64,string,uint64)void` ABI method.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call transaction
+     */
+    grantConsent: (params: CallParams<AgentPassArgs['obj']['grantConsent(uint64,string,uint64)void'] | AgentPassArgs['tuple']['grantConsent(uint64,string,uint64)void']> & {onComplete?: OnApplicationComplete.NoOpOC}) => {
+      return this.appClient.createTransaction.call(AgentPassParamsFactory.grantConsent(params))
+    },
+
+    /**
+     * Makes a call to the AgentPass smart contract using the `revokeConsent(uint64,string)void` ABI method.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call transaction
+     */
+    revokeConsent: (params: CallParams<AgentPassArgs['obj']['revokeConsent(uint64,string)void'] | AgentPassArgs['tuple']['revokeConsent(uint64,string)void']> & {onComplete?: OnApplicationComplete.NoOpOC}) => {
+      return this.appClient.createTransaction.call(AgentPassParamsFactory.revokeConsent(params))
+    },
+
+    /**
+     * Makes a call to the AgentPass smart contract using the `verifyConsent(uint64,string)bool` ABI method.
+     * 
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call transaction
+     */
+    verifyConsent: (params: CallParams<AgentPassArgs['obj']['verifyConsent(uint64,string)bool'] | AgentPassArgs['tuple']['verifyConsent(uint64,string)bool']> & {onComplete?: OnApplicationComplete.NoOpOC}) => {
+      return this.appClient.createTransaction.call(AgentPassParamsFactory.verifyConsent(params))
+    },
+
+    /**
+     * Makes a call to the AgentPass smart contract using the `getAgent(uint64)(address,string,string,uint64)` ABI method.
+     * 
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call transaction
+     */
+    getAgent: (params: CallParams<AgentPassArgs['obj']['getAgent(uint64)(address,string,string,uint64)'] | AgentPassArgs['tuple']['getAgent(uint64)(address,string,string,uint64)']> & {onComplete?: OnApplicationComplete.NoOpOC}) => {
+      return this.appClient.createTransaction.call(AgentPassParamsFactory.getAgent(params))
     },
 
   }
@@ -469,6 +807,65 @@ export class AgentPassClient {
       return {...result, return: result.return as unknown as (undefined | AgentPassReturns['hello(string)string'])}
     },
 
+    /**
+     * Makes a call to the AgentPass smart contract using the `registerAgent(string,string)uint64` ABI method.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    registerAgent: async (params: CallParams<AgentPassArgs['obj']['registerAgent(string,string)uint64'] | AgentPassArgs['tuple']['registerAgent(string,string)uint64']> & SendParams & {onComplete?: OnApplicationComplete.NoOpOC}) => {
+      const result = await this.appClient.send.call(AgentPassParamsFactory.registerAgent(params))
+      return {...result, return: result.return as unknown as (undefined | AgentPassReturns['registerAgent(string,string)uint64'])}
+    },
+
+    /**
+     * Makes a call to the AgentPass smart contract using the `grantConsent(uint64,string,uint64)void` ABI method.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    grantConsent: async (params: CallParams<AgentPassArgs['obj']['grantConsent(uint64,string,uint64)void'] | AgentPassArgs['tuple']['grantConsent(uint64,string,uint64)void']> & SendParams & {onComplete?: OnApplicationComplete.NoOpOC}) => {
+      const result = await this.appClient.send.call(AgentPassParamsFactory.grantConsent(params))
+      return {...result, return: result.return as unknown as (undefined | AgentPassReturns['grantConsent(uint64,string,uint64)void'])}
+    },
+
+    /**
+     * Makes a call to the AgentPass smart contract using the `revokeConsent(uint64,string)void` ABI method.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    revokeConsent: async (params: CallParams<AgentPassArgs['obj']['revokeConsent(uint64,string)void'] | AgentPassArgs['tuple']['revokeConsent(uint64,string)void']> & SendParams & {onComplete?: OnApplicationComplete.NoOpOC}) => {
+      const result = await this.appClient.send.call(AgentPassParamsFactory.revokeConsent(params))
+      return {...result, return: result.return as unknown as (undefined | AgentPassReturns['revokeConsent(uint64,string)void'])}
+    },
+
+    /**
+     * Makes a call to the AgentPass smart contract using the `verifyConsent(uint64,string)bool` ABI method.
+     * 
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    verifyConsent: async (params: CallParams<AgentPassArgs['obj']['verifyConsent(uint64,string)bool'] | AgentPassArgs['tuple']['verifyConsent(uint64,string)bool']> & SendParams & {onComplete?: OnApplicationComplete.NoOpOC}) => {
+      const result = await this.appClient.send.call(AgentPassParamsFactory.verifyConsent(params))
+      return {...result, return: result.return as unknown as (undefined | AgentPassReturns['verifyConsent(uint64,string)bool'])}
+    },
+
+    /**
+     * Makes a call to the AgentPass smart contract using the `getAgent(uint64)(address,string,string,uint64)` ABI method.
+     * 
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    getAgent: async (params: CallParams<AgentPassArgs['obj']['getAgent(uint64)(address,string,string,uint64)'] | AgentPassArgs['tuple']['getAgent(uint64)(address,string,string,uint64)']> & SendParams & {onComplete?: OnApplicationComplete.NoOpOC}) => {
+      const result = await this.appClient.send.call(AgentPassParamsFactory.getAgent(params))
+      return {...result, return: result.return as unknown as (undefined | AgentPassReturns['getAgent(uint64)(address,string,string,uint64)'])}
+    },
+
   }
 
   /**
@@ -482,9 +879,92 @@ export class AgentPassClient {
   }
 
   /**
+   * Makes a readonly (simulated) call to the AgentPass smart contract using the `verifyConsent(uint64,string)bool` ABI method.
+   * 
+   * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+   *
+   * @param params The params for the smart contract call
+   * @returns The call result
+   */
+  async verifyConsent(params: CallParams<AgentPassArgs['obj']['verifyConsent(uint64,string)bool'] | AgentPassArgs['tuple']['verifyConsent(uint64,string)bool']>) {
+    const result = await this.appClient.send.call(AgentPassParamsFactory.verifyConsent(params))
+    return result.return as unknown as AgentPassReturns['verifyConsent(uint64,string)bool']
+  }
+
+  /**
+   * Makes a readonly (simulated) call to the AgentPass smart contract using the `getAgent(uint64)(address,string,string,uint64)` ABI method.
+   * 
+   * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+   *
+   * @param params The params for the smart contract call
+   * @returns The call result
+   */
+  async getAgent(params: CallParams<AgentPassArgs['obj']['getAgent(uint64)(address,string,string,uint64)'] | AgentPassArgs['tuple']['getAgent(uint64)(address,string,string,uint64)']>) {
+    const result = await this.appClient.send.call(AgentPassParamsFactory.getAgent(params))
+    return result.return as unknown as AgentPassReturns['getAgent(uint64)(address,string,string,uint64)']
+  }
+
+  /**
    * Methods to access state for the current AgentPass app
    */
   state = {
+    /**
+     * Methods to access global state for the current AgentPass app
+     */
+    global: {
+      /**
+       * Get all current keyed values from global state
+       */
+      getAll: async (): Promise<Partial<Expand<GlobalKeysState>>> => {
+        const result = await this.appClient.state.global.getAll()
+        return {
+          nextAgentId: result.nextAgentId,
+        }
+      },
+      /**
+       * Get the current value of the nextAgentId key in global state
+       */
+      nextAgentId: async (): Promise<bigint | undefined> => { return (await this.appClient.state.global.getValue("nextAgentId")) as bigint | undefined },
+    },
+    /**
+     * Methods to access box state for the current AgentPass app
+     */
+    box: {
+      /**
+       * Get all current keyed values from box state
+       */
+      getAll: async (): Promise<Partial<Expand<BoxKeysState>>> => {
+        const result = await this.appClient.state.box.getAll()
+        return {
+        }
+      },
+      /**
+       * Get values from the agents map in box state
+       */
+      agents: {
+        /**
+         * Get all current values of the agents map in box state
+         */
+        getMap: async (): Promise<Map<bigint, AgentInfo>> => { return (await this.appClient.state.box.getMap("agents")) as Map<bigint, AgentInfo> },
+        /**
+         * Get a current value of the agents map by key from box state
+         */
+        value: async (key: bigint | number): Promise<AgentInfo | undefined> => { return await this.appClient.state.box.getMapValue("agents", key) as AgentInfo | undefined },
+      },
+      /**
+       * Get values from the consents map in box state
+       */
+      consents: {
+        /**
+         * Get all current values of the consents map in box state
+         */
+        getMap: async (): Promise<Map<ConsentKey, ConsentRecord>> => { return (await this.appClient.state.box.getMap("consents")) as Map<ConsentKey, ConsentRecord> },
+        /**
+         * Get a current value of the consents map by key from box state
+         */
+        value: async (key: ConsentKey): Promise<ConsentRecord | undefined> => { return await this.appClient.state.box.getMapValue("consents", key) as ConsentRecord | undefined },
+      },
+    },
   }
 
   public newGroup(): AgentPassComposer {
@@ -499,6 +979,46 @@ export class AgentPassClient {
       hello(params: CallParams<AgentPassArgs['obj']['hello(string)string'] | AgentPassArgs['tuple']['hello(string)string']> & {onComplete?: OnApplicationComplete.NoOpOC}) {
         promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.hello(params)))
         resultMappers.push((v) => client.decodeReturnValue('hello(string)string', v))
+        return this
+      },
+      /**
+       * Add a registerAgent(string,string)uint64 method call against the AgentPass contract
+       */
+      registerAgent(params: CallParams<AgentPassArgs['obj']['registerAgent(string,string)uint64'] | AgentPassArgs['tuple']['registerAgent(string,string)uint64']> & {onComplete?: OnApplicationComplete.NoOpOC}) {
+        promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.registerAgent(params)))
+        resultMappers.push((v) => client.decodeReturnValue('registerAgent(string,string)uint64', v))
+        return this
+      },
+      /**
+       * Add a grantConsent(uint64,string,uint64)void method call against the AgentPass contract
+       */
+      grantConsent(params: CallParams<AgentPassArgs['obj']['grantConsent(uint64,string,uint64)void'] | AgentPassArgs['tuple']['grantConsent(uint64,string,uint64)void']> & {onComplete?: OnApplicationComplete.NoOpOC}) {
+        promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.grantConsent(params)))
+        resultMappers.push(undefined)
+        return this
+      },
+      /**
+       * Add a revokeConsent(uint64,string)void method call against the AgentPass contract
+       */
+      revokeConsent(params: CallParams<AgentPassArgs['obj']['revokeConsent(uint64,string)void'] | AgentPassArgs['tuple']['revokeConsent(uint64,string)void']> & {onComplete?: OnApplicationComplete.NoOpOC}) {
+        promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.revokeConsent(params)))
+        resultMappers.push(undefined)
+        return this
+      },
+      /**
+       * Add a verifyConsent(uint64,string)bool method call against the AgentPass contract
+       */
+      verifyConsent(params: CallParams<AgentPassArgs['obj']['verifyConsent(uint64,string)bool'] | AgentPassArgs['tuple']['verifyConsent(uint64,string)bool']> & {onComplete?: OnApplicationComplete.NoOpOC}) {
+        promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.verifyConsent(params)))
+        resultMappers.push((v) => client.decodeReturnValue('verifyConsent(uint64,string)bool', v))
+        return this
+      },
+      /**
+       * Add a getAgent(uint64)(address,string,string,uint64) method call against the AgentPass contract
+       */
+      getAgent(params: CallParams<AgentPassArgs['obj']['getAgent(uint64)(address,string,string,uint64)'] | AgentPassArgs['tuple']['getAgent(uint64)(address,string,string,uint64)']> & {onComplete?: OnApplicationComplete.NoOpOC}) {
+        promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getAgent(params)))
+        resultMappers.push((v) => client.decodeReturnValue('getAgent(uint64)(address,string,string,uint64)', v))
         return this
       },
       /**
@@ -544,6 +1064,51 @@ export type AgentPassComposer<TReturns extends [...any[]] = []> = {
    * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
    */
   hello(params?: CallParams<AgentPassArgs['obj']['hello(string)string'] | AgentPassArgs['tuple']['hello(string)string']>): AgentPassComposer<[...TReturns, AgentPassReturns['hello(string)string'] | undefined]>
+
+  /**
+   * Calls the registerAgent(string,string)uint64 ABI method.
+   *
+   * @param args The arguments for the contract call
+   * @param params Any additional parameters for the call
+   * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
+   */
+  registerAgent(params?: CallParams<AgentPassArgs['obj']['registerAgent(string,string)uint64'] | AgentPassArgs['tuple']['registerAgent(string,string)uint64']>): AgentPassComposer<[...TReturns, AgentPassReturns['registerAgent(string,string)uint64'] | undefined]>
+
+  /**
+   * Calls the grantConsent(uint64,string,uint64)void ABI method.
+   *
+   * @param args The arguments for the contract call
+   * @param params Any additional parameters for the call
+   * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
+   */
+  grantConsent(params?: CallParams<AgentPassArgs['obj']['grantConsent(uint64,string,uint64)void'] | AgentPassArgs['tuple']['grantConsent(uint64,string,uint64)void']>): AgentPassComposer<[...TReturns, AgentPassReturns['grantConsent(uint64,string,uint64)void'] | undefined]>
+
+  /**
+   * Calls the revokeConsent(uint64,string)void ABI method.
+   *
+   * @param args The arguments for the contract call
+   * @param params Any additional parameters for the call
+   * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
+   */
+  revokeConsent(params?: CallParams<AgentPassArgs['obj']['revokeConsent(uint64,string)void'] | AgentPassArgs['tuple']['revokeConsent(uint64,string)void']>): AgentPassComposer<[...TReturns, AgentPassReturns['revokeConsent(uint64,string)void'] | undefined]>
+
+  /**
+   * Calls the verifyConsent(uint64,string)bool ABI method.
+   *
+   * @param args The arguments for the contract call
+   * @param params Any additional parameters for the call
+   * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
+   */
+  verifyConsent(params?: CallParams<AgentPassArgs['obj']['verifyConsent(uint64,string)bool'] | AgentPassArgs['tuple']['verifyConsent(uint64,string)bool']>): AgentPassComposer<[...TReturns, AgentPassReturns['verifyConsent(uint64,string)bool'] | undefined]>
+
+  /**
+   * Calls the getAgent(uint64)(address,string,string,uint64) ABI method.
+   *
+   * @param args The arguments for the contract call
+   * @param params Any additional parameters for the call
+   * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
+   */
+  getAgent(params?: CallParams<AgentPassArgs['obj']['getAgent(uint64)(address,string,string,uint64)'] | AgentPassArgs['tuple']['getAgent(uint64)(address,string,string,uint64)']>): AgentPassComposer<[...TReturns, AgentPassReturns['getAgent(uint64)(address,string,string,uint64)'] | undefined]>
 
   /**
    * Makes a clear_state call to an existing instance of the AgentPass smart contract.

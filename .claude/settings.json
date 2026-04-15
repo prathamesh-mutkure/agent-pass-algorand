@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/prathamesh/.claude/skills/algorand-typescript/references/**)",
+      "Read(//Users/prathamesh/.claude/plans/**)",
+      "Bash(pnpm add *)",
+      "Bash(pnpm run *)"
+    ]
+  }
+}
