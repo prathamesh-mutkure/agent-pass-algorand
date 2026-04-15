@@ -1,6 +1,8 @@
 import { useSnackbar } from 'notistack'
 import { useState } from 'react'
 import { useAgentPassClient } from '../hooks/useAgentPassClient'
+import { Button } from './ui/Button'
+import { ModalShell } from './ui/ModalShell'
 
 interface VerifyConsentModalProps {
   openModal: boolean
@@ -54,44 +56,59 @@ const VerifyConsentModal = ({ openModal, setModalState }: VerifyConsentModalProp
   }
 
   return (
-    <dialog id="verify_consent_modal" className={`modal ${openModal ? 'modal-open' : ''} bg-slate-200`}>
-      <form method="dialog" className="modal-box">
-        <h3 className="font-bold text-lg">Verify Consent</h3>
-        <p className="py-2 text-sm opacity-70">Check whether an agent has valid consent for a scope. Readonly call.</p>
-        <input
-          type="number"
-          placeholder="Agent ID"
-          className="input input-bordered w-full my-2"
-          value={agentId}
-          onChange={(e) => setAgentId(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Scope"
-          className="input input-bordered w-full my-2"
-          value={scope}
-          onChange={(e) => setScope(e.target.value)}
-        />
-        {result !== null && (
-          <div className={`alert ${result ? 'alert-success' : 'alert-error'} my-2`}>
-            <span>{result ? 'Consent valid' : 'No valid consent'}</span>
-          </div>
-        )}
-        <div className="modal-action flex-wrap">
-          <button type="button" className="btn" onClick={close}>
+    <ModalShell
+      open={openModal}
+      onClose={close}
+      eyebrow="Step 3"
+      title="Verify or revoke consent"
+      description="Simulate the service-side permission check. Verify access for a scope, then revoke it if needed."
+      footer={
+        <>
+          <Button variant="ghost" onClick={close}>
             Close
-          </button>
+          </Button>
           {result === true && (
-            <button type="button" className="btn btn-warning" onClick={revoke} disabled={revoking}>
-              {revoking ? <span className="loading loading-spinner" /> : 'Revoke'}
-            </button>
+            <Button variant="danger" onClick={revoke} disabled={revoking}>
+              {revoking ? 'Revoking...' : 'Revoke'}
+            </Button>
           )}
-          <button type="button" className="btn btn-primary" onClick={verify} disabled={!agentId || !scope || loading}>
-            {loading ? <span className="loading loading-spinner" /> : 'Verify'}
-          </button>
+          <Button variant="accent" onClick={verify} disabled={!agentId || !scope || loading}>
+            {loading ? 'Verifying...' : 'Verify'}
+          </Button>
+        </>
+      }
+    >
+      <div className="form-grid">
+        <label className="field">
+          <span className="field__label">Agent ID</span>
+          <input
+            type="number"
+            placeholder="1"
+            className="field__input"
+            value={agentId}
+            onChange={(e) => setAgentId(e.target.value)}
+          />
+        </label>
+        <label className="field">
+          <span className="field__label">Scope</span>
+          <input
+            type="text"
+            placeholder="profile.read"
+            className="field__input"
+            value={scope}
+            onChange={(e) => setScope(e.target.value)}
+          />
+        </label>
+      </div>
+      {result !== null && (
+        <div className={`status-banner ${result ? 'status-banner--success' : 'status-banner--error'}`}>
+          <span className="status-banner__title">{result ? 'Consent is valid' : 'Consent is not valid'}</span>
+          <span className="status-banner__copy">
+            {result ? 'The service can safely continue with this request.' : 'The service should deny or ask for a new grant.'}
+          </span>
         </div>
-      </form>
-    </dialog>
+      )}
+    </ModalShell>
   )
 }
 

@@ -1,6 +1,8 @@
 import { useSnackbar } from 'notistack'
 import { useState } from 'react'
 import { useAgentPassClient } from '../hooks/useAgentPassClient'
+import { Button } from './ui/Button'
+import { ModalShell } from './ui/ModalShell'
 
 interface GrantConsentModalProps {
   openModal: boolean
@@ -33,46 +35,56 @@ const GrantConsentModal = ({ openModal, setModalState }: GrantConsentModalProps)
   }
 
   return (
-    <dialog id="grant_consent_modal" className={`modal ${openModal ? 'modal-open' : ''} bg-slate-200`}>
-      <form method="dialog" className="modal-box">
-        <h3 className="font-bold text-lg">Grant Consent</h3>
-        <p className="py-2 text-sm opacity-70">Authorize your agent to act on a specific scope until it expires.</p>
-        <input
-          type="number"
-          placeholder="Agent ID (e.g. 1)"
-          className="input input-bordered w-full my-2"
-          value={agentId}
-          onChange={(e) => setAgentId(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Scope (e.g. profile.read)"
-          className="input input-bordered w-full my-2"
-          value={scope}
-          onChange={(e) => setScope(e.target.value)}
-        />
-        <input
-          type="number"
-          placeholder="Expires in (minutes)"
-          className="input input-bordered w-full my-2"
-          value={expiresInMinutes}
-          onChange={(e) => setExpiresInMinutes(e.target.value)}
-        />
-        <div className="modal-action">
-          <button type="button" className="btn" onClick={() => setModalState(false)}>
-            Close
-          </button>
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={submit}
-            disabled={!agentId || !scope || !expiresInMinutes || loading}
-          >
-            {loading ? <span className="loading loading-spinner" /> : 'Grant Consent'}
-          </button>
-        </div>
-      </form>
-    </dialog>
+    <ModalShell
+      open={openModal}
+      onClose={() => setModalState(false)}
+      eyebrow="Step 2"
+      title="Grant scoped consent"
+      description="Authorize the agent to act on a single scope for a limited time window."
+      footer={
+        <>
+          <Button variant="ghost" onClick={() => setModalState(false)}>
+            Cancel
+          </Button>
+          <Button variant="secondary" onClick={submit} disabled={!agentId || !scope || !expiresInMinutes || loading}>
+            {loading ? 'Granting...' : 'Grant consent'}
+          </Button>
+        </>
+      }
+    >
+      <div className="form-grid">
+        <label className="field">
+          <span className="field__label">Agent ID</span>
+          <input
+            type="number"
+            placeholder="1"
+            className="field__input"
+            value={agentId}
+            onChange={(e) => setAgentId(e.target.value)}
+          />
+        </label>
+        <label className="field">
+          <span className="field__label">Scope</span>
+          <input
+            type="text"
+            placeholder="profile.read"
+            className="field__input"
+            value={scope}
+            onChange={(e) => setScope(e.target.value)}
+          />
+        </label>
+        <label className="field">
+          <span className="field__label">Expiry in minutes</span>
+          <input
+            type="number"
+            placeholder="60"
+            className="field__input"
+            value={expiresInMinutes}
+            onChange={(e) => setExpiresInMinutes(e.target.value)}
+          />
+        </label>
+      </div>
+    </ModalShell>
   )
 }
 

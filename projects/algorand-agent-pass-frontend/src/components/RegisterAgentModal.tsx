@@ -1,6 +1,8 @@
 import { useSnackbar } from 'notistack'
 import { useState } from 'react'
 import { useAgentPassClient } from '../hooks/useAgentPassClient'
+import { Button } from './ui/Button'
+import { ModalShell } from './ui/ModalShell'
 
 interface RegisterAgentModalProps {
   openModal: boolean
@@ -31,34 +33,46 @@ const RegisterAgentModal = ({ openModal, setModalState }: RegisterAgentModalProp
   }
 
   return (
-    <dialog id="register_agent_modal" className={`modal ${openModal ? 'modal-open' : ''} bg-slate-200`}>
-      <form method="dialog" className="modal-box">
-        <h3 className="font-bold text-lg">Register an AI Agent</h3>
-        <p className="py-2 text-sm opacity-70">Creates an on-chain identity for your agent. You become the owner.</p>
-        <input
-          type="text"
-          placeholder="Agent name (e.g. MyResearchBot)"
-          className="input input-bordered w-full my-2"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Metadata (e.g. https://mybot.example)"
-          className="input input-bordered w-full my-2"
-          value={metadata}
-          onChange={(e) => setMetadata(e.target.value)}
-        />
-        <div className="modal-action">
-          <button type="button" className="btn" onClick={() => setModalState(false)}>
-            Close
-          </button>
-          <button type="button" className="btn btn-primary" onClick={submit} disabled={!name || loading}>
-            {loading ? <span className="loading loading-spinner" /> : 'Register Agent'}
-          </button>
-        </div>
-      </form>
-    </dialog>
+    <ModalShell
+      open={openModal}
+      onClose={() => setModalState(false)}
+      eyebrow="Step 1"
+      title="Register an agent identity"
+      description="Create a verifiable on-chain identity for your AI agent. The connected wallet becomes the owner."
+      footer={
+        <>
+          <Button variant="ghost" onClick={() => setModalState(false)}>
+            Cancel
+          </Button>
+          <Button variant="primary" onClick={submit} disabled={!name || loading}>
+            {loading ? 'Registering...' : 'Register agent'}
+          </Button>
+        </>
+      }
+    >
+      <div className="form-grid">
+        <label className="field">
+          <span className="field__label">Agent name</span>
+          <input
+            type="text"
+            placeholder="MyResearchBot"
+            className="field__input"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </label>
+        <label className="field">
+          <span className="field__label">Metadata URL or descriptor</span>
+          <input
+            type="text"
+            placeholder="https://mybot.example"
+            className="field__input"
+            value={metadata}
+            onChange={(e) => setMetadata(e.target.value)}
+          />
+        </label>
+      </div>
+    </ModalShell>
   )
 }
 
